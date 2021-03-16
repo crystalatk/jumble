@@ -1,6 +1,7 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import JobList from "./components/JobList";
 import JobDetails from "./components/JobDetails";
+import ProgLangInput from "./components/ProgLangInput";
 import "./App.css";
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
         <h1>Jumble</h1>
       </header>
       <Router>
+        <ProgLangInput />
         <JobList />
         <JobDetails />
       </Router>
