@@ -12,3 +12,16 @@
   font-size: 48px;
   color: white;
 }
+
+a {
+  color: #282c34;
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+.logo {
+  width: 100px;
+}
