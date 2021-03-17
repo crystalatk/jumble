@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-const ProgLangInput = () => {
-  const [jobs, setJobs] = useState([]);
+const ProgLangInput = ({ handleJobs, handleReload }) => {
   const [progLang, setProgLang] = useState("");
+  const [submitError, setSubmitError] = useState("");
 
   const _handleLangChange = (e) => {
     setProgLang(e.target.value.toLowerCase());
@@ -11,18 +11,25 @@ const ProgLangInput = () => {
   const _handleSubmit = async (e) => {
     e.preventDefault();
     const submitResponse = await fetch(
-      `http://127.0.0.1:3232/jobs/${progLang}`,
+      `http://127.0.0.1:3232/jobs/?url=https://jobs.github.com/positions.json?description=${progLang}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       }
     )
-      .then((response) => response)
+      .then((response) => response.json())
       .catch((e) => {
         console.log(e);
       });
-    setJobs(await submitResponse.json());
-    console.log(jobs);
+    console.log("This is the jobList DATA: ", submitResponse);
+    if (submitResponse) {
+      handleReload(true);
+      handleJobs(submitResponse);
+    } else {
+      setSubmitError(
+        "You've been triple crystalized!!!! i.e. you don't have any data coming in..."
+      );
+    }
   };
 
   return (
@@ -39,6 +46,7 @@ const ProgLangInput = () => {
         </label>
         <button type="submit">Search</button>
       </form>
+      {!!submitError && <div className="error">{submitError}</div>}
     </>
   );
 };

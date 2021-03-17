@@ -1,7 +1,26 @@
-const JobList = () => {
+import { Route, Link, useHistory } from "react-router-dom";
+
+const JobList = ({ jobsList }) => {
   return (
     <>
-      <div>I am in the job list!</div>
+      <h1>Available Jobs:</h1>
+      {!!jobsList.length ? (
+        <ul data-testid="jobsList">
+          {jobsList.map((job) => {
+            return (
+              <li key={job.id}>
+                <Link data-testid={job.id} to={`/job/${job.id}`}>
+                  <strong>{job.title}</strong>
+                  <h6>@ {job.company}</h6>
+                </Link>
+                <hr />
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <p>Jobs Loading....</p>
+      )}
     </>
   );
 };
