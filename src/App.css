@@ -21,3 +21,7 @@ a {
 li {
   list-style: none;
 }
+
+.logo {
+  width: 100px;
+}

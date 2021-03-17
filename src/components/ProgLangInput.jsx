@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const ProgLangInput = ({ handleJobs, handleReload }) => {
+const ProgLangInput = ({ handleJobs, handleReload, handleSearch }) => {
   const [progLang, setProgLang] = useState("");
   const [submitError, setSubmitError] = useState("");
 
@@ -10,6 +10,7 @@ const ProgLangInput = ({ handleJobs, handleReload }) => {
 
   const _handleSubmit = async (e) => {
     e.preventDefault();
+    handleSearch(true);
     const submitResponse = await fetch(
       `http://127.0.0.1:3232/jobs/?url=https://jobs.github.com/positions.json?description=${progLang}`,
       {

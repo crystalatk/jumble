@@ -1,4 +1,4 @@
-import { Route, Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const JobList = ({ jobsList }) => {
   return (
@@ -10,6 +10,12 @@ const JobList = ({ jobsList }) => {
             return (
               <li key={job.id}>
                 <Link data-testid={job.id} to={`/job/${job.id}`}>
+                  <img
+                    src={job.company_logo}
+                    alt="Company Logo"
+                    className="logo"
+                  />
+                  <br />
                   <strong>{job.title}</strong>
                   <h6>@ {job.company}</h6>
                 </Link>
