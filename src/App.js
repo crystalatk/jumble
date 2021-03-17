@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import JobList from "./components/JobList";
 import JobDetails from "./components/JobDetails";
-import ProgLangInput from "./components/ProgLangInput";
+import Input from "./components/Input";
 import "./App.css";
 
 function App() {
@@ -28,7 +28,7 @@ function App() {
       </header>
       <Router>
         <Route exact path="/">
-          <ProgLangInput
+          <Input
             handleJobs={handleJobs}
             handleReload={handleReload}
             handleSearch={handleSearch}

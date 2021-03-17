@@ -11,11 +11,13 @@ const JobDetails = ({ jobsList }) => {
   return (
     <>
       <div>I am in the job details</div>
-      <img src={job.company_logo} alt="Company Logo" />
+      <img src={job.company_logo} alt="Company Logo" className="logo" />
       <h1>{job.title}</h1>
       <h3>{job.location}</h3>
       <h4>{job.company}</h4>
-      {!!job.company_url ? <h5>{job.company_url}</h5> : null}
+      {!!job.company_url ? (
+        <a href={job.company_url}>{job.company_url}</a>
+      ) : null}
       <h5>{job.created_at}</h5>
       <div>{parse(job.description)}</div>
       <button
