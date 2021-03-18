@@ -1,6 +1,22 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
-const JobList = ({ jobsList }) => {
+const JobList = ({ jobsList, userID }) => {
+  const [faveIcon, setFaveIcon] = useState("/icons/heart-3-line.png");
+
+  const _handleAddToFaveClick = async (e, key) => {
+    e.preventDefault();
+    const addToFaveResponse = await fetch("http://127.0.0.1:3232/users/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user_id: userID,
+        job_id: key,
+        table: "favorites",
+      }),
+    });
+  };
+
   return (
     <>
       <h1>Available Jobs:</h1>
@@ -18,6 +34,13 @@ const JobList = ({ jobsList }) => {
                   <br />
                   <strong>{job.title}</strong>
                   <h6>@ {job.company}</h6>
+                  {userID ? (
+                    <img
+                      src={faveIcon}
+                      alt="favorites icon"
+                      className="icons"
+                    />
+                  ) : null}
                 </Link>
                 <hr />
               </li>
