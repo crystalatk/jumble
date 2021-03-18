@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const ProgLangInput = ({ handleJobs, handleReload, handleSearch }) => {
+const ProgLangInput = ({ handleJobs, handleSearch }) => {
   const [progLang, setProgLang] = useState("");
   const [zip, setZip] = useState("");
   const [submitError, setSubmitError] = useState("");
@@ -27,7 +27,6 @@ const ProgLangInput = ({ handleJobs, handleReload, handleSearch }) => {
       });
     console.log("This is the jobList DATA: ", submitResponse);
     if (submitResponse) {
-      handleReload(true);
       handleJobs(submitResponse);
       setSubmitError(null);
     } else {

@@ -18,10 +18,75 @@ a {
   text-decoration: none;
 }
 
+h1 {
+  margin: 10px auto;
+}
+
 li {
   list-style: none;
 }
 
+input {
+  margin: 5px;
+}
+
+label {
+  font-size: 16px;
+}
+
+button {
+  background-color: darkolivegreen;
+  border: 1px solid greenyellow;
+  border-radius: 20px;
+  color: aliceblue;
+  font-size: 12px;
+  padding: 5px 10px;
+}
+
+.login {
+  border: 1px solid greenyellow;
+  border-radius: 20px;
+  font-size: 16px;
+  margin: 10px auto;
+  max-width: 600px;
+  padding: 10px 10px;
+}
+
 .logo {
   width: 100px;
+}
+
+.avatar {
+  width: 100px;
+}
+
+.how-to-apply {
+  border: 2px solid rgb(137, 206, 33);
+  border-radius: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+.icons {
+  width: 20px;
+}
+
+.f-red {
+  color: rgb(170, 2, 2);
+}
+
+.f-small {
+  font-size: 10px;
+}
+
+.m-10 {
+  margin: 10px;
+}
+
+.m-20 {
+  margin: 20px;
+}
+
+.f-light {
+  color: aliceblue;
 }
