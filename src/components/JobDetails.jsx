@@ -40,13 +40,17 @@ const JobDetails = ({ jobsList, userID }) => {
       {!!job ? (
         <>
           <h1>Job Details:</h1>
-          <button type="button" onClick={_handleAddToFaveClick}>
-            Add to Favorites
-          </button>
-          <button type="button" onClick={_handleAppliedClick}>
-            I Applied!!
-          </button>
-          <br />
+          {userID ? (
+            <>
+              <button type="button" onClick={_handleAddToFaveClick}>
+                Add to Favorites
+              </button>
+              <button type="button" onClick={_handleAppliedClick}>
+                I Applied!!
+              </button>
+              <br />
+            </>
+          ) : null}
           <button
             data-testid="backButton"
             type="button"
