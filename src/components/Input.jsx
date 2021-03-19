@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const ProgLangInput = ({ handleJobs, handleSearch }) => {
+const ProgLangInput = ({ setJobsList, setSearch }) => {
   const [progLang, setProgLang] = useState("");
   const [zip, setZip] = useState("");
   const [submitError, setSubmitError] = useState("");
@@ -15,7 +15,7 @@ const ProgLangInput = ({ handleJobs, handleSearch }) => {
 
   const _handleSubmit = async (e) => {
     e.preventDefault();
-    handleSearch(true);
+    setSearch(true);
     const url = `http://127.0.0.1:3232/jobs/?progLang=${progLang}&zip=${zip}`;
     const submitResponse = await fetch(url, {
       method: "GET",
@@ -27,7 +27,7 @@ const ProgLangInput = ({ handleJobs, handleSearch }) => {
       });
     console.log("This is the jobList DATA: ", submitResponse);
     if (submitResponse) {
-      handleJobs(submitResponse);
+      setJobsList(submitResponse);
       setSubmitError(null);
     } else {
       setSubmitError(

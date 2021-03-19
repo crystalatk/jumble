@@ -1,23 +1,20 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import JobListItem from "./JobListItem";
+import FaveListItem from "./FaveListItem";
 
-const JobList = ({
-  jobsList,
-  userID,
+const Favorites = ({
   favoritesList,
   setFavoritesList,
+  userID,
   appliedList,
   setAppliedList,
 }) => {
   return (
     <>
-      <h1>Available Jobs:</h1>
-      {!!jobsList.length ? (
+      <h1>Your favorite Jobs!</h1>
+      {!!favoritesList.length ? (
         <ul data-testid="jobsList" className="ul">
-          {jobsList.map((job) => {
+          {favoritesList.map((job) => {
             return (
-              <JobListItem
+              <FaveListItem
                 job={job}
                 userID={userID}
                 favoritesList={favoritesList}
@@ -30,10 +27,10 @@ const JobList = ({
           })}
         </ul>
       ) : (
-        <p>Jobs Loading....</p>
+        <p>No Favorite Jobs</p>
       )}
     </>
   );
 };
 
-export default JobList;
+export default Favorites;
