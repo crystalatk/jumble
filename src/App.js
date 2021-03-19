@@ -82,7 +82,9 @@ function App() {
               setAppliedList={setAppliedList}
             />
           ) : (
-            <p>Choose a language and location to find available jobs</p>
+            <p className="f-light">
+              Choose a language and location to find available jobs
+            </p>
           )}
         </Route>
         <Route path="/job/:id">

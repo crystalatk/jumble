@@ -2,6 +2,7 @@ const AppliedIcon = ({
   userID,
   isApplied,
   job,
+  jobID,
   setAppliedList,
   appliedList,
   appliedIcon,
@@ -15,7 +16,7 @@ const AppliedIcon = ({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           user_id: userID,
-          job_id: job.id,
+          job_id: jobID,
           title: job.title,
           location: job.location,
           company: job.company,
@@ -31,7 +32,7 @@ const AppliedIcon = ({
     setAppliedList([
       ...appliedList,
       {
-        job_id: job.id,
+        job_id: jobID,
         title: job.title,
         location: job.location,
         company: job.company,
@@ -53,12 +54,12 @@ const AppliedIcon = ({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           user_id: userID,
-          job_id: job.id,
+          job_id: jobID,
           table: "applied",
         }),
       }
     );
-    setAppliedList(appliedList.filter((applied) => applied.job_id !== job.id));
+    setAppliedList(appliedList.filter((applied) => applied.job_id !== jobID));
   };
 
   return (

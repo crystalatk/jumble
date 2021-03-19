@@ -38,10 +38,6 @@ const JobListItem = ({
     );
   }, [isApplied]);
 
-  useEffect(() => {
-    console.log(favoritesList);
-  }, [favoritesList]);
-
   return (
     <>
       <li className="card">
@@ -53,6 +49,7 @@ const JobListItem = ({
               userID={userID}
               isFavorite={isFavorite}
               job={job}
+              jobID={job.id}
               favoritesList={favoritesList}
               setFavoritesList={setFavoritesList}
               faveIcon={faveIcon}
@@ -61,6 +58,7 @@ const JobListItem = ({
               userID={userID}
               isApplied={isApplied}
               job={job}
+              jobID={job.id}
               appliedList={appliedList}
               setAppliedList={setAppliedList}
               appliedIcon={appliedIcon}

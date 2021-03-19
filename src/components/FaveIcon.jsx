@@ -2,6 +2,7 @@ const FaveIcon = ({
   userID,
   isFavorite,
   job,
+  jobID,
   setFavoritesList,
   favoritesList,
   faveIcon,
@@ -13,7 +14,7 @@ const FaveIcon = ({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         user_id: userID,
-        job_id: job.id,
+        job_id: jobID,
         title: job.title,
         location: job.location,
         company: job.company,
@@ -28,7 +29,7 @@ const FaveIcon = ({
     setFavoritesList([
       ...favoritesList,
       {
-        job_id: job.id,
+        job_id: jobID,
         title: job.title,
         location: job.location,
         company: job.company,
@@ -50,13 +51,13 @@ const FaveIcon = ({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           user_id: userID,
-          job_id: job.id,
+          job_id: jobID,
           table: "favorites",
         }),
       }
     );
     setFavoritesList(
-      favoritesList.filter((favorite) => favorite.job_id !== job.id)
+      favoritesList.filter((favorite) => favorite.job_id !== jobID)
     );
   };
 

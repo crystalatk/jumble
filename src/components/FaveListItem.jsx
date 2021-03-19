@@ -16,7 +16,7 @@ const FaveListItem = ({
   const [isApplied, setIsApplied] = useState(false);
 
   useEffect(() => {
-    setIsApplied(appliedList.some((applied) => applied.job_id === job.id));
+    setIsApplied(appliedList.some((applied) => applied.job_id === job.job_id));
   }, [appliedList]);
 
   useEffect(() => {
@@ -74,6 +74,7 @@ const FaveListItem = ({
                   userID={userID}
                   isApplied={isApplied}
                   job={job}
+                  jobID={job.job_id}
                   appliedList={appliedList}
                   setAppliedList={setAppliedList}
                   appliedIcon={appliedIcon}

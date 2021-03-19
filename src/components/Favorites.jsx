@@ -9,7 +9,7 @@ const Favorites = ({
 }) => {
   return (
     <>
-      <h1>You favorite Jobs!</h1>
+      <h1>Your favorite Jobs!</h1>
       {!!favoritesList.length ? (
         <ul data-testid="jobsList" className="ul">
           {favoritesList.map((job) => {
