@@ -7,7 +7,11 @@ const JobDetails = ({ jobsList, userID, setFavoritesList, favoritesList }) => {
   const { id } = useParams();
   const history = useHistory();
   const job = jobsList?.find((job) => {
-    return job.id === id ? job : null;
+    return job.id === id
+      ? job
+      : favoritesList?.find((favorite) => {
+          return favorite.job_id === id ? favorite : null;
+        });
   });
 
   useEffect(() => {
@@ -29,10 +33,25 @@ const JobDetails = ({ jobsList, userID, setFavoritesList, favoritesList }) => {
         created_at: job.created_at,
         description: job.description,
         how_to_apply: job.how_to_apply,
+        company_logo: job.company_logo,
         table: "favorites",
       }),
-    });
-    setFavoritesList([...favoritesList, { job_id: job.id }]);
+    }).then((response) => response.json());
+    console.log("THIS IS THE ADDTOFAVERESPONSE: ", addToFaveResponse);
+    setFavoritesList([
+      ...favoritesList,
+      {
+        job_id: job.id,
+        title: job.title,
+        location: job.location,
+        company: job.company,
+        company_url: job.company_url,
+        created_at: job.created_at,
+        description: job.description,
+        how_to_apply: job.how_to_apply,
+        company_logo: job.company_logo,
+      },
+    ]);
   };
 
   const _handleAppliedClick = async (e) => {
@@ -50,6 +69,7 @@ const JobDetails = ({ jobsList, userID, setFavoritesList, favoritesList }) => {
         created_at: job.created_at,
         description: job.description,
         how_to_apply: job.how_to_apply,
+        company_logo: job.company_logo,
         table: "applied",
       }),
     });

@@ -26,12 +26,25 @@ const JobListItem = ({ job, userID, favoritesList, setFavoritesList }) => {
         table: "favorites",
       }),
     });
-    setFavoritesList(job.id);
+    setFavoritesList([
+      ...favoritesList,
+      {
+        job_id: job.job_id,
+        title: job.title,
+        location: job.location,
+        company: job.company,
+        company_url: job.company_url,
+        created_at: job.created_at,
+        description: job.description,
+        how_to_apply: job.how_to_apply,
+        company_logo: job.company_logo,
+      },
+    ]);
   };
 
   return (
     <>
-      <li key={job.id}>
+      <li>
         <Link data-testid={job.id} to={`/job/${job.id}`}>
           <img src={job.company_logo} alt="Company Logo" className="logo" />
           <br />

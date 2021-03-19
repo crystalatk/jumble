@@ -5,6 +5,7 @@ import JobDetails from "./components/JobDetails";
 import Input from "./components/Input";
 import Login from "./components/Login";
 import CreateAccount from "./components/CreateAccount";
+import Favorites from "./components/Favorites";
 import "./App.css";
 
 function App() {
@@ -42,9 +43,14 @@ function App() {
             <h1 className="f-light">Jumble</h1>
           </Link>
           {isLoggedin ? (
-            <button type="button" onClick={_handleLogOutClick}>
-              Log Out
-            </button>
+            <>
+              <button type="button" onClick={_handleLogOutClick}>
+                Log Out
+              </button>
+              <Link to="/favorites" className="f-light f-small m-10">
+                Click here to view Favorites
+              </Link>
+            </>
           ) : (
             <Login setIsLoggedIn={setIsLoggedIn} setUserID={setUserID} />
           )}
@@ -72,6 +78,13 @@ function App() {
         </Route>
         <Route path="/signup">
           <CreateAccount />
+        </Route>
+        <Route path="/favorites">
+          <Favorites
+            userID={userID}
+            favoritesList={favoritesList}
+            setFavoritesList={setFavoritesList}
+          />
         </Route>
       </Router>
     </div>

@@ -15,6 +15,7 @@ const JobList = ({ jobsList, userID, favoritesList, setFavoritesList }) => {
                 userID={userID}
                 favoritesList={favoritesList}
                 setFavoritesList={setFavoritesList}
+                key={job.id}
               />
             );
           })}
