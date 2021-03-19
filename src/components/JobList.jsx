@@ -2,12 +2,19 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import JobListItem from "./JobListItem";
 
-const JobList = ({ jobsList, userID, favoritesList, setFavoritesList }) => {
+const JobList = ({
+  jobsList,
+  userID,
+  favoritesList,
+  setFavoritesList,
+  appliedList,
+  setAppliedList,
+}) => {
   return (
     <>
       <h1>Available Jobs:</h1>
       {!!jobsList.length ? (
-        <ul data-testid="jobsList">
+        <ul data-testid="jobsList" className="ul">
           {jobsList.map((job) => {
             return (
               <JobListItem
@@ -16,6 +23,8 @@ const JobList = ({ jobsList, userID, favoritesList, setFavoritesList }) => {
                 favoritesList={favoritesList}
                 setFavoritesList={setFavoritesList}
                 key={job.id}
+                appliedList={appliedList}
+                setAppliedList={setAppliedList}
               />
             );
           })}

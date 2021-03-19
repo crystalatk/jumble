@@ -1,18 +1,53 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useHistory, Link } from "react-router-dom";
 import parse from "html-react-parser";
 import HowToApply from "./HowToApply";
+import FaveIcon from "./FaveIcon";
+import AppliedIcon from "./AppliedIcon";
 
-const JobDetails = ({ jobsList, userID, setFavoritesList, favoritesList }) => {
+const JobDetails = ({
+  jobsList,
+  userID,
+  setFavoritesList,
+  favoritesList,
+  appliedList,
+  setAppliedList,
+}) => {
   const { id } = useParams();
   const history = useHistory();
   const job = jobsList?.find((job) => {
-    return job.id === id
-      ? job
-      : favoritesList?.find((favorite) => {
-          return favorite.job_id === id ? favorite : null;
-        });
+    return job.id === id ? job : null;
   });
+  const [faveIcon, setFaveIcon] = useState("/icons/heart-3-line.png");
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [appliedIcon, setAppliedIcon] = useState(
+    "/icons/checkbox-blank-line.png"
+  );
+  const [isApplied, setIsApplied] = useState(false);
+
+  useEffect(() => {
+    setIsFavorite(favoritesList.some((favorite) => favorite.job_id === job.id));
+  }, [favoritesList]);
+
+  useEffect(() => {
+    setFaveIcon(
+      isFavorite ? "/icons/heart-3-fill.png" : "/icons/heart-3-line.png"
+    );
+  }, [isFavorite]);
+
+  useEffect(() => {
+    setIsApplied(appliedList.some((applied) => applied.job_id === job.id));
+  }, [appliedList]);
+
+  useEffect(() => {
+    setAppliedIcon(
+      isApplied ? "/icons/checkbox-fill.png" : "/icons/checkbox-blank-line.png"
+    );
+  }, [isApplied]);
+
+  useEffect(() => {
+    console.log(favoritesList);
+  }, [favoritesList]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -37,7 +72,6 @@ const JobDetails = ({ jobsList, userID, setFavoritesList, favoritesList }) => {
         table: "favorites",
       }),
     }).then((response) => response.json());
-    console.log("THIS IS THE ADDTOFAVERESPONSE: ", addToFaveResponse);
     setFavoritesList([
       ...favoritesList,
       {
@@ -81,16 +115,24 @@ const JobDetails = ({ jobsList, userID, setFavoritesList, favoritesList }) => {
         <>
           <h1>Job Details:</h1>
           {userID ? (
-            <>
-              {}
-              <button type="button" onClick={_handleAddToFaveClick}>
-                Add to Favorites
-              </button>
-              <button type="button" onClick={_handleAppliedClick}>
-                I Applied!!
-              </button>
-              <br />
-            </>
+            <div className="block">
+              <FaveIcon
+                userID={userID}
+                isFavorite={isFavorite}
+                job={job}
+                favoritesList={favoritesList}
+                setFavoritesList={setFavoritesList}
+                faveIcon={faveIcon}
+              />
+              <AppliedIcon
+                userID={userID}
+                isApplied={isApplied}
+                job={job}
+                appliedList={appliedList}
+                setAppliedList={setAppliedList}
+                appliedIcon={appliedIcon}
+              />
+            </div>
           ) : null}
           <button
             data-testid="backButton"

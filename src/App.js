@@ -6,6 +6,7 @@ import Input from "./components/Input";
 import Login from "./components/Login";
 import CreateAccount from "./components/CreateAccount";
 import Favorites from "./components/Favorites";
+import Applied from "./components/Applied";
 import "./App.css";
 
 function App() {
@@ -27,12 +28,23 @@ function App() {
     fetchFaves();
   }, [userID]);
 
-  // const fetchApplied;
+  const fetchApplied = async () => {
+    const appliedData = await fetch(
+      `http://127.0.0.1:3232/users/userList?user_id=${userID}&table=applied`
+    );
+    setAppliedList(await appliedData.json());
+  };
+
+  useEffect(() => {
+    fetchApplied();
+  }, [userID]);
 
   const _handleLogOutClick = (e) => {
     e.preventDefault();
     setIsLoggedIn(false);
     setUserID("");
+    setAppliedList([]);
+    setFavoritesList([]);
   };
 
   return (
@@ -50,6 +62,9 @@ function App() {
               <Link to="/favorites" className="f-light f-small m-10">
                 Click here to view Favorites
               </Link>
+              <Link to="/applied" className="f-light f-small m-10">
+                Click here to view Jobs Applied
+              </Link>
             </>
           ) : (
             <Login setIsLoggedIn={setIsLoggedIn} setUserID={setUserID} />
@@ -63,6 +78,8 @@ function App() {
               userID={userID}
               favoritesList={favoritesList}
               setFavoritesList={setFavoritesList}
+              appliedList={appliedList}
+              setAppliedList={setAppliedList}
             />
           ) : (
             <p>Choose a language and location to find available jobs</p>
@@ -74,6 +91,8 @@ function App() {
             userID={userID}
             setFavoritesList={setFavoritesList}
             favoritesList={favoritesList}
+            appliedList={appliedList}
+            setAppliedList={setAppliedList}
           />
         </Route>
         <Route path="/signup">
@@ -84,6 +103,17 @@ function App() {
             userID={userID}
             favoritesList={favoritesList}
             setFavoritesList={setFavoritesList}
+            appliedList={appliedList}
+            setAppliedList={setAppliedList}
+          />
+        </Route>
+        <Route path="/applied">
+          <Applied
+            userID={userID}
+            favoritesList={favoritesList}
+            setFavoritesList={setFavoritesList}
+            appliedList={appliedList}
+            setAppliedList={setAppliedList}
           />
         </Route>
       </Router>
