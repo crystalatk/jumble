@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-const Login = ({ handleIsLoggedIn, handleUserID }) => {
+const Login = ({ setIsLoggedIn, setUserID }) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -27,9 +27,9 @@ const Login = ({ handleIsLoggedIn, handleUserID }) => {
     setUserName("");
     setPassword("");
     if (loginResponse.isValid) {
-      handleIsLoggedIn(true);
-      handleUserID(loginResponse.user_id);
-    } else handleIsLoggedIn(false);
+      setIsLoggedIn(true);
+      setUserID(loginResponse.user_id);
+    } else setIsLoggedIn(false);
   };
 
   return (

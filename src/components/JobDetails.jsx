@@ -1,13 +1,18 @@
+import { useEffect } from "react";
 import { useParams, useHistory, Link } from "react-router-dom";
 import parse from "html-react-parser";
 import HowToApply from "./HowToApply";
 
-const JobDetails = ({ jobsList, userID }) => {
+const JobDetails = ({ jobsList, userID, setFavoritesList, favoritesList }) => {
   const { id } = useParams();
   const history = useHistory();
   const job = jobsList?.find((job) => {
     return job.id === id ? job : null;
   });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const _handleAddToFaveClick = async (e) => {
     e.preventDefault();
@@ -17,9 +22,17 @@ const JobDetails = ({ jobsList, userID }) => {
       body: JSON.stringify({
         user_id: userID,
         job_id: job.id,
+        title: job.title,
+        location: job.location,
+        company: job.company,
+        company_url: job.company_url,
+        created_at: job.created_at,
+        description: job.description,
+        how_to_apply: job.how_to_apply,
         table: "favorites",
       }),
     });
+    setFavoritesList([...favoritesList, { job_id: job.id }]);
   };
 
   const _handleAppliedClick = async (e) => {
@@ -30,6 +43,13 @@ const JobDetails = ({ jobsList, userID }) => {
       body: JSON.stringify({
         user_id: userID,
         job_id: job.id,
+        title: job.title,
+        location: job.location,
+        company: job.company,
+        company_url: job.company_url,
+        created_at: job.created_at,
+        description: job.description,
+        how_to_apply: job.how_to_apply,
         table: "applied",
       }),
     });
@@ -42,6 +62,7 @@ const JobDetails = ({ jobsList, userID }) => {
           <h1>Job Details:</h1>
           {userID ? (
             <>
+              {}
               <button type="button" onClick={_handleAddToFaveClick}>
                 Add to Favorites
               </button>

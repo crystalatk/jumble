@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import JobList from "./components/JobList";
 import JobDetails from "./components/JobDetails";
@@ -12,22 +12,21 @@ function App() {
   const [search, setSearch] = useState(false);
   const [isLoggedin, setIsLoggedIn] = useState(false);
   const [userID, setUserID] = useState("");
+  const [favoritesList, setFavoritesList] = useState([]);
+  const [appliedList, setAppliedList] = useState([]);
 
-  const handleJobs = (jobslist) => {
-    setJobsList(jobslist);
+  const fetchFaves = async () => {
+    const favesData = await fetch(
+      `http://127.0.0.1:3232/users/userList?user_id=${userID}&table=favorites`
+    );
+    setFavoritesList(await favesData.json());
   };
 
-  const handleSearch = (search) => {
-    setSearch(search);
-  };
+  useEffect(() => {
+    fetchFaves();
+  }, [userID]);
 
-  const handleIsLoggedIn = (status) => {
-    setIsLoggedIn(status);
-  };
-
-  const handleUserID = (id) => {
-    setUserID(id);
-  };
+  // const fetchApplied;
 
   const _handleLogOutClick = (e) => {
     e.preventDefault();
@@ -47,22 +46,29 @@ function App() {
               Log Out
             </button>
           ) : (
-            <Login
-              handleIsLoggedIn={handleIsLoggedIn}
-              handleUserID={handleUserID}
-            />
+            <Login setIsLoggedIn={setIsLoggedIn} setUserID={setUserID} />
           )}
         </header>
         <Route exact path="/">
-          <Input handleJobs={handleJobs} handleSearch={handleSearch} />
+          <Input setJobsList={setJobsList} setSearch={setSearch} />
           {!!search ? (
-            <JobList jobsList={jobsList} userID={userID} />
+            <JobList
+              jobsList={jobsList}
+              userID={userID}
+              favoritesList={favoritesList}
+              setFavoritesList={setFavoritesList}
+            />
           ) : (
             <p>Choose a language and location to find available jobs</p>
           )}
         </Route>
         <Route path="/job/:id">
-          <JobDetails jobsList={jobsList} userID={userID} />
+          <JobDetails
+            jobsList={jobsList}
+            userID={userID}
+            setFavoritesList={setFavoritesList}
+            favoritesList={favoritesList}
+          />
         </Route>
         <Route path="/signup">
           <CreateAccount />
