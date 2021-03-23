@@ -22,10 +22,8 @@ const ProgLangInput = ({
   const _handleSubmit = async (e) => {
     e.preventDefault();
     setSearch(true);
-    const url = `http://127.0.0.1:3232/jobs/?progLang=${progLang}&zip=${zip}`;
     const submitResponse = await fetch(
-      url ||
-        `${process.env.REACT_APP_SERVER_URL}/jobs/?progLang=${progLang}&zip=${zip}`,
+      `${process.env.REACT_APP_SERVER_URL}jobs/?progLang=${progLang}&zip=${zip}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },

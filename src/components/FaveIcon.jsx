@@ -12,8 +12,7 @@ const FaveIcon = ({
   const _handleAddToFaveClick = async (e) => {
     e.preventDefault();
     const addToFaveResponse = await fetch(
-      "http://127.0.0.1:3232/users/add" ||
-        `${process.env.REACT_APP_SERVER_URL}/users/add`,
+      `${process.env.REACT_APP_SERVER_URL}users/add`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -47,8 +46,7 @@ const FaveIcon = ({
       ...favoritesList,
     ]);
     const DeleteTrashedResponse = await fetch(
-      "http://127.0.0.1:3232/users/delete" ||
-        `${process.env.REACT_APP_SERVER_URL}/users/delete`,
+      `${process.env.REACT_APP_SERVER_URL}users/delete`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -66,8 +64,7 @@ const FaveIcon = ({
   const _handleDeleteFaveClick = async (e) => {
     e.preventDefault();
     const DeleteFaveResponse = await fetch(
-      "http://127.0.0.1:3232/users/delete" ||
-        `${process.env.REACT_APP_SERVER_URL}/users/delete`,
+      `${process.env.REACT_APP_SERVER_URL}users/delete`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

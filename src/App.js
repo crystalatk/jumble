@@ -5,7 +5,7 @@ import JobDetails from "./components/JobDetails";
 import Input from "./components/Input";
 import Login from "./components/Login";
 import CreateAccount from "./components/CreateAccount";
-import Deck from "./components/Deck";
+
 import Favorites from "./components/Favorites";
 import Applied from "./components/Applied";
 import Trashed from "./components/Trashed";
@@ -25,8 +25,7 @@ function App() {
 
   const fetchFaves = async () => {
     const favesData = await fetch(
-      `http://127.0.0.1:3232/users/userList?user_id=${userID}&table=favorites` ||
-        `${process.env.REACT_APP_SERVER_URL}/users/userList?user_id=${userID}&table=favorites`
+      `${process.env.REACT_APP_SERVER_URL}users/userList?user_id=${userID}&table=favorites`
     );
     setFavoritesList(await favesData.json());
   };
@@ -37,8 +36,7 @@ function App() {
 
   const fetchApplied = async () => {
     const appliedData = await fetch(
-      `http://127.0.0.1:3232/users/userList?user_id=${userID}&table=applied` ||
-        `${process.env.REACT_APP_SERVER_URL}/users/userList?user_id=${userID}&table=applied`
+      `${process.env.REACT_APP_SERVER_URL}users/userList?user_id=${userID}&table=applied`
     );
     setAppliedList(await appliedData.json());
   };
@@ -49,8 +47,7 @@ function App() {
 
   const fetchTrashed = async () => {
     const trashedData = await fetch(
-      `http://127.0.0.1:3232/users/userList?user_id=${userID}&table=trashed` ||
-        `${process.env.REACT_APP_SERVER_URL}/users/userList?user_id=${userID}&table=trashed`
+      `${process.env.REACT_APP_SERVER_URL}users/userList?user_id=${userID}&table=trashed`
     );
     setTrashedList(await trashedData.json());
   };

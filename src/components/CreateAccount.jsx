@@ -53,8 +53,7 @@ const CreateAccount = () => {
     e.preventDefault();
     if (password2 === password) {
       const submitResponse = await fetch(
-        "http://127.0.0.1:3232/users/signup" ||
-          `${process.env.REACT_APP_SERVER_URL}/users/signup`,
+        `${process.env.REACT_APP_SERVER_URL}users/signup`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
