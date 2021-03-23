@@ -18,7 +18,7 @@ const Login = ({ setIsLoggedIn, setUserID }) => {
     e.preventDefault();
     console.log("THIS IS THE ENV: ", process.env.REACT_APP_SERVER_URL);
     const loginResponse = await fetch(
-      `${process.env.REACT_APP_SERVER_URL}users/login`,
+      `${process.env.REACT_APP_SERVER_URL}/users/login`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
