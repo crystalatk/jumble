@@ -5,6 +5,7 @@ const ProgLangInput = ({
   setSearch,
   favoritesList,
   appliedList,
+  trashedList,
 }) => {
   const [progLang, setProgLang] = useState("");
   const [zip, setZip] = useState("");
@@ -32,7 +33,14 @@ const ProgLangInput = ({
       });
     console.log("This is the jobList DATA: ", submitResponse);
     if (submitResponse) {
-      setJobsList(submitResponse);
+      setJobsList(
+        submitResponse.filter(
+          (job) =>
+            !favoritesList.some((faveJob) => job.id === faveJob.job_id) &&
+            !appliedList.some((appliedJob) => job.id === appliedJob.job_id) &&
+            !trashedList.some((trashedJob) => job.id === trashedJob.job_id)
+        )
+      );
       setSubmitError(null);
     } else {
       setSubmitError(

@@ -11,44 +11,87 @@ const JobListItem = ({
   setFavoritesList,
   appliedList,
   setAppliedList,
+  trashedList,
+  setTrashedList,
 }) => {
   const handlers = useSwipeable({
-    onSwipedLeft: () => {
+    onSwipedLeft: async () => {
       console.log("I went left!");
+      if (userID) {
+        const addToTrashResponse = await fetch(
+          "http://127.0.0.1:3232/users/add",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              user_id: userID,
+              job_id: job.id,
+              title: job.title,
+              location: job.location,
+              company: job.company,
+              company_url: job.company_url,
+              created_at: job.created_at,
+              description: job.description,
+              how_to_apply: job.how_to_apply,
+              company_logo: job.company_logo,
+              table: "trashed",
+            }),
+          }
+        );
+        setTrashedList([
+          {
+            job_id: job.id,
+            title: job.title,
+            location: job.location,
+            company: job.company,
+            company_url: job.company_url,
+            created_at: job.created_at,
+            description: job.description,
+            how_to_apply: job.how_to_apply,
+            company_logo: job.company_logo,
+          },
+          ...trashedList,
+        ]);
+      }
     },
     onSwipedRight: async () => {
       console.log("I went right!");
-      const addToFaveResponse = await fetch("http://127.0.0.1:3232/users/add", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          user_id: userID,
-          job_id: job.id,
-          title: job.title,
-          location: job.location,
-          company: job.company,
-          company_url: job.company_url,
-          created_at: job.created_at,
-          description: job.description,
-          how_to_apply: job.how_to_apply,
-          company_logo: job.company_logo,
-          table: "favorites",
-        }),
-      });
-      setFavoritesList([
-        ...favoritesList,
-        {
-          job_id: job.id,
-          title: job.title,
-          location: job.location,
-          company: job.company,
-          company_url: job.company_url,
-          created_at: job.created_at,
-          description: job.description,
-          how_to_apply: job.how_to_apply,
-          company_logo: job.company_logo,
-        },
-      ]);
+      if (userID) {
+        const addToFaveResponse = await fetch(
+          "http://127.0.0.1:3232/users/add",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              user_id: userID,
+              job_id: job.id,
+              title: job.title,
+              location: job.location,
+              company: job.company,
+              company_url: job.company_url,
+              created_at: job.created_at,
+              description: job.description,
+              how_to_apply: job.how_to_apply,
+              company_logo: job.company_logo,
+              table: "favorites",
+            }),
+          }
+        );
+        setFavoritesList([
+          {
+            job_id: job.id,
+            title: job.title,
+            location: job.location,
+            company: job.company,
+            company_url: job.company_url,
+            created_at: job.created_at,
+            description: job.description,
+            how_to_apply: job.how_to_apply,
+            company_logo: job.company_logo,
+          },
+          ...favoritesList,
+        ]);
+      }
     },
     preventDefaultTouchmoveEvent: true,
     trackMouse: true,
@@ -96,6 +139,8 @@ const JobListItem = ({
                 favoritesList={favoritesList}
                 setFavoritesList={setFavoritesList}
                 faveIcon={faveIcon}
+                trashedList={trashedList}
+                setTrashedList={setTrashedList}
               />
               <AppliedIcon
                 userID={userID}
@@ -105,6 +150,8 @@ const JobListItem = ({
                 appliedList={appliedList}
                 setAppliedList={setAppliedList}
                 appliedIcon={appliedIcon}
+                setFavoritesList={setFavoritesList}
+                favoritesList={favoritesList}
               />
               <br />
             </div>

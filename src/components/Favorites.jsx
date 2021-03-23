@@ -6,6 +6,8 @@ const Favorites = ({
   userID,
   appliedList,
   setAppliedList,
+  trashedList,
+  setTrashedList,
 }) => {
   return (
     <>
@@ -22,6 +24,8 @@ const Favorites = ({
                 key={job.id}
                 appliedList={appliedList}
                 setAppliedList={setAppliedList}
+                trashedList={trashedList}
+                setTrashedList={setTrashedList}
               />
             );
           })}

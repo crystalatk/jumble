@@ -16,10 +16,11 @@ const Trashed = ({
             return (
               <TrashedListItem
                 job={job}
+                jobID={job.job_id}
                 userID={userID}
                 favoritesList={favoritesList}
                 setFavoritesList={setFavoritesList}
-                key={job.id}
+                key={job.job_id}
                 trashedList={trashedList}
                 setTrashedList={setTrashedList}
               />

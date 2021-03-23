@@ -17,8 +17,6 @@ const Applied = ({
               <AppliedListItem
                 job={job}
                 userID={userID}
-                favoritesList={favoritesList}
-                setFavoritesList={setFavoritesList}
                 key={job.id}
                 appliedList={appliedList}
                 setAppliedList={setAppliedList}

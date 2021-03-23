@@ -6,6 +6,8 @@ const FaveIcon = ({
   setFavoritesList,
   favoritesList,
   faveIcon,
+  trashedList,
+  setTrashedList,
 }) => {
   const _handleAddToFaveClick = async (e) => {
     e.preventDefault();
@@ -27,7 +29,6 @@ const FaveIcon = ({
       }),
     });
     setFavoritesList([
-      ...favoritesList,
       {
         job_id: jobID,
         title: job.title,
@@ -39,7 +40,22 @@ const FaveIcon = ({
         how_to_apply: job.how_to_apply,
         company_logo: job.company_logo,
       },
+      ...favoritesList,
     ]);
+    const DeleteTrashedResponse = await fetch(
+      "http://127.0.0.1:3232/users/delete",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user_id: userID,
+          job_id: jobID,
+          table: "trashed",
+        }),
+      }
+    );
+    console.log("THIS IS THE TRASHED LIST ON THE FAVEICON: ", trashedList);
+    setTrashedList(trashedList.filter((trashed) => trashed.job_id !== jobID));
   };
 
   const _handleDeleteFaveClick = async (e) => {

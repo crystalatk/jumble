@@ -5,25 +5,28 @@ import HowToApply from "./HowToApply";
 import FaveIcon from "./FaveIcon";
 import AppliedIcon from "./AppliedIcon";
 
-const JobDetails = ({
+const JobDetailsApplied = ({
   jobsList,
   userID,
   setFavoritesList,
   favoritesList,
   appliedList,
   setAppliedList,
+  trashedList,
+  setTrashedList,
 }) => {
   const { id } = useParams();
   const history = useHistory();
-  const job = jobsList?.find((job) => {
-    return job.id === id ? job : null;
+  const job = appliedList?.find((job) => {
+    console.log("THIS IS THE JOB ID: ", job.id);
+    return job.job_id === id ? job : null;
   });
   const [faveIcon, setFaveIcon] = useState("/icons/heart-3-line.png");
   const [isFavorite, setIsFavorite] = useState(false);
   const [appliedIcon, setAppliedIcon] = useState(
     "/icons/checkbox-blank-line.png"
   );
-  const [isApplied, setIsApplied] = useState(false);
+  const [isApplied, setIsApplied] = useState(true);
 
   useEffect(() => {
     setIsFavorite(favoritesList.some((favorite) => favorite.job_id === job.id));
@@ -67,29 +70,6 @@ const JobDetails = ({
             GO BACK
           </button>
           <div className="job-details">
-            {/* {userID ? (
-              <div className="block">
-                <FaveIcon
-                  userID={userID}
-                  isFavorite={isFavorite}
-                  job={job}
-                  jobID={job.id}
-                  favoritesList={favoritesList}
-                  setFavoritesList={setFavoritesList}
-                  faveIcon={faveIcon}
-                />
-                <AppliedIcon
-                  userID={userID}
-                  isApplied={isApplied}
-                  job={job}
-                  jobID={job.id}
-                  appliedList={appliedList}
-                  setAppliedList={setAppliedList}
-                  appliedIcon={appliedIcon}
-                />
-              </div>
-            ) : null} */}
-
             <br />
             <img
               src={job.company_logo}
@@ -119,4 +99,4 @@ const JobDetails = ({
   );
 };
 
-export default JobDetails;
+export default JobDetailsApplied;

@@ -1,23 +1,18 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import FaveIcon from "./FaveIcon";
-import AppliedIcon from "./AppliedIcon";
 
-const AppliedListItem = ({
-  jobsList,
+const TrashedListItem = ({
   userID,
   setFavoritesList,
   favoritesList,
-  appliedList,
-  setAppliedList,
   job,
+  jobID,
+  trashedList,
+  setTrashedList,
 }) => {
   const [faveIcon, setFaveIcon] = useState("/icons/heart-3-line.png");
   const [isFavorite, setIsFavorite] = useState(false);
-  const [appliedIcon, setAppliedIcon] = useState(
-    "/icons/checkbox-blank-line.png"
-  );
-  const [isApplied, setIsApplied] = useState(false);
 
   useEffect(() => {
     setIsFavorite(
@@ -31,20 +26,10 @@ const AppliedListItem = ({
     );
   }, [isFavorite]);
 
-  useEffect(() => {
-    setIsApplied(appliedList.some((applied) => applied.job_id === job.job_id));
-  }, [appliedList]);
-
-  useEffect(() => {
-    setAppliedIcon(
-      isApplied ? "/icons/checkbox-fill.png" : "/icons/checkbox-blank-line.png"
-    );
-  }, [isApplied]);
-
   return (
     <>
       <li className="card">
-        <Link data-testid={job.id} to={`/job/${job.id}`}>
+        <Link data-testid={job.id} to={`/trash/${jobID}`}>
           <div className="card-header">
             <img src={job.company_logo} alt="Company Logo" className="logo" />
             <br />
@@ -56,15 +41,8 @@ const AppliedListItem = ({
               favoritesList={favoritesList}
               setFavoritesList={setFavoritesList}
               faveIcon={faveIcon}
-            />
-            <AppliedIcon
-              userID={userID}
-              isApplied={isApplied}
-              job={job}
-              jobID={job.job_id}
-              appliedList={appliedList}
-              setAppliedList={setAppliedList}
-              appliedIcon={appliedIcon}
+              trashedList={trashedList}
+              setTrashedList={setTrashedList}
             />
             <br />
           </div>
@@ -78,4 +56,4 @@ const AppliedListItem = ({
   );
 };
 
-export default AppliedListItem;
+export default TrashedListItem;

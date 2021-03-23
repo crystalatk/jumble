@@ -8,6 +8,10 @@ import CreateAccount from "./components/CreateAccount";
 import Deck from "./components/Deck";
 import Favorites from "./components/Favorites";
 import Applied from "./components/Applied";
+import Trashed from "./components/Trashed";
+import JobDetailsFave from "./components/JobDetailsFave";
+import JobDetailsApplied from "./components/JobDetailsApplied";
+import JobDetailsTrashed from "./components/JobDetailsTrashed";
 import "./App.css";
 
 function App() {
@@ -50,6 +54,7 @@ function App() {
 
   useEffect(() => {
     userID && fetchTrashed();
+    console.log("TRAHSED LIST: ", trashedList);
   }, [userID]);
 
   useEffect(() => {
@@ -61,7 +66,7 @@ function App() {
           !trashedList.some((trashedJob) => job.id === trashedJob.job_id)
       )
     );
-  }, [favoritesList, appliedList]);
+  }, [favoritesList, appliedList, trashedList, userID]);
 
   const _handleLogOutClick = (e) => {
     e.preventDefault();
@@ -104,6 +109,7 @@ function App() {
             setSearch={setSearch}
             favoritesList={favoritesList}
             appliedList={appliedList}
+            trashedList={trashedList}
           />
 
           {!!search ? (
@@ -122,6 +128,8 @@ function App() {
               setFavoritesList={setFavoritesList}
               appliedList={appliedList}
               setAppliedList={setAppliedList}
+              trashedList={trashedList}
+              setTrashedList={setTrashedList}
             />
           ) : (
             <p className="f-light">
@@ -139,6 +147,31 @@ function App() {
             setAppliedList={setAppliedList}
           />
         </Route>
+        <Route path="/fave/:id">
+          <JobDetailsFave
+            jobsList={jobsList}
+            userID={userID}
+            setFavoritesList={setFavoritesList}
+            favoritesList={favoritesList}
+            appliedList={appliedList}
+            setAppliedList={setAppliedList}
+            trashedList={trashedList}
+            setTrashedList={setTrashedList}
+          />
+        </Route>
+        <Route path="/app/:id">
+          <JobDetailsApplied
+            jobsList={jobsList}
+            userID={userID}
+            setFavoritesList={setFavoritesList}
+            favoritesList={favoritesList}
+            appliedList={appliedList}
+            setAppliedList={setAppliedList}
+          />
+        </Route>
+        <Route path="/trash/:id">
+          <JobDetailsTrashed trashedList={trashedList} />
+        </Route>
         <Route path="/signup">
           <CreateAccount />
         </Route>
@@ -149,6 +182,8 @@ function App() {
             setFavoritesList={setFavoritesList}
             appliedList={appliedList}
             setAppliedList={setAppliedList}
+            trashedList={trashedList}
+            setTrashedList={setTrashedList}
           />
         </Route>
         <Route path="/applied">
@@ -166,6 +201,7 @@ function App() {
             setFavoritesList={setFavoritesList}
             userID={userID}
             trashedList={trashedList}
+            setTrashedList={setTrashedList}
           />
         </Route>
       </Router>
