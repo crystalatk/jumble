@@ -25,7 +25,8 @@ function App() {
 
   const fetchFaves = async () => {
     const favesData = await fetch(
-      `http://127.0.0.1:3232/users/userList?user_id=${userID}&table=favorites`
+      `http://127.0.0.1:3232/users/userList?user_id=${userID}&table=favorites` ||
+        `${process.env.REACT_APP_SERVER_URL}/users/userList?user_id=${userID}&table=favorites`
     );
     setFavoritesList(await favesData.json());
   };
@@ -36,7 +37,8 @@ function App() {
 
   const fetchApplied = async () => {
     const appliedData = await fetch(
-      `http://127.0.0.1:3232/users/userList?user_id=${userID}&table=applied`
+      `http://127.0.0.1:3232/users/userList?user_id=${userID}&table=applied` ||
+        `${process.env.REACT_APP_SERVER_URL}/users/userList?user_id=${userID}&table=applied`
     );
     setAppliedList(await appliedData.json());
   };
@@ -47,14 +49,14 @@ function App() {
 
   const fetchTrashed = async () => {
     const trashedData = await fetch(
-      `http://127.0.0.1:3232/users/userList?user_id=${userID}&table=trashed`
+      `http://127.0.0.1:3232/users/userList?user_id=${userID}&table=trashed` ||
+        `${process.env.REACT_APP_SERVER_URL}/users/userList?user_id=${userID}&table=trashed`
     );
     setTrashedList(await trashedData.json());
   };
 
   useEffect(() => {
     userID && fetchTrashed();
-    console.log("TRAHSED LIST: ", trashedList);
   }, [userID]);
 
   useEffect(() => {
@@ -85,9 +87,11 @@ function App() {
           </Link>
           {isLoggedin ? (
             <>
-              <button type="button" onClick={_handleLogOutClick}>
-                Log Out
-              </button>
+              <Link to="/">
+                <button type="button" onClick={_handleLogOutClick}>
+                  Log Out
+                </button>
+              </Link>
               <Link to="/favorites" className="f-light f-small m-10">
                 Click here to view Favorites
               </Link>

@@ -23,10 +23,14 @@ const ProgLangInput = ({
     e.preventDefault();
     setSearch(true);
     const url = `http://127.0.0.1:3232/jobs/?progLang=${progLang}&zip=${zip}`;
-    const submitResponse = await fetch(url, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    })
+    const submitResponse = await fetch(
+      url ||
+        `${process.env.REACT_APP_SERVER_URL}/jobs/?progLang=${progLang}&zip=${zip}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    )
       .then((response) => response.json())
       .catch((e) => {
         console.log(e);
@@ -59,6 +63,7 @@ const ProgLangInput = ({
             type="text"
             value={progLang}
             onChange={_handleLangChange}
+            data-testid="inputField"
           />
         </label>
         <label>
@@ -70,7 +75,9 @@ const ProgLangInput = ({
             onChange={_handleZipChange}
           />
         </label>
-        <button type="submit">Search</button>
+        <button type="submit" data-testid="searchButton">
+          Search
+        </button>
       </form>
       {!!submitError && <div className="error">{submitError}</div>}
     </>

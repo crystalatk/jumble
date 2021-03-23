@@ -16,14 +16,18 @@ const Login = ({ setIsLoggedIn, setUserID }) => {
 
   const _handleLogin = async (e) => {
     e.preventDefault();
-    const loginResponse = await fetch("http://127.0.0.1:3232/users/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        username: userName,
-        password: password,
-      }),
-    })
+    console.log("THIS IS THE ENV: ", process.env.REACT_APP_SERVER_URL);
+    const loginResponse = await fetch(
+      `${process.env.REACT_APP_SERVER_URL}users/login`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: userName,
+          password: password,
+        }),
+      }
+    )
       .then((response) => response.json())
       .catch((err) => {
         console.log(err.message);
@@ -44,7 +48,7 @@ const Login = ({ setIsLoggedIn, setUserID }) => {
 
   return (
     <div className="login">
-      <h3>Login to Save Jobs or view your favorites!</h3>
+      <h3 data-testid="title">Login to Save Jobs or view your favorites!</h3>
       <form onSubmit={_handleLogin}>
         <label>
           {" "}

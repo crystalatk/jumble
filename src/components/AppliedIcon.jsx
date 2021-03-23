@@ -13,7 +13,8 @@ const AppliedIcon = ({
   const _handleAddToAppliedClick = async (e) => {
     e.preventDefault();
     const addToAppliedResponse = await fetch(
-      "http://127.0.0.1:3232/users/add",
+      "http://127.0.0.1:3232/users/add" ||
+        `${process.env.REACT_APP_SERVER_URL}/users/add`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -46,23 +47,27 @@ const AppliedIcon = ({
       },
       ...appliedList,
     ]);
-    const addToFaveResponse = await fetch("http://127.0.0.1:3232/users/add", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        user_id: userID,
-        job_id: jobID,
-        title: job.title,
-        location: job.location,
-        company: job.company,
-        company_url: job.company_url,
-        created_at: job.created_at,
-        description: job.description,
-        how_to_apply: job.how_to_apply,
-        company_logo: job.company_logo,
-        table: "favorites",
-      }),
-    });
+    const addToFaveResponse = await fetch(
+      "http://127.0.0.1:3232/users/add" ||
+        `${process.env.REACT_APP_SERVER_URL}/users/add`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user_id: userID,
+          job_id: jobID,
+          title: job.title,
+          location: job.location,
+          company: job.company,
+          company_url: job.company_url,
+          created_at: job.created_at,
+          description: job.description,
+          how_to_apply: job.how_to_apply,
+          company_logo: job.company_logo,
+          table: "favorites",
+        }),
+      }
+    );
     if (!favoritesList.some((fave) => fave.job_id === jobID)) {
       setFavoritesList([
         {
@@ -84,7 +89,8 @@ const AppliedIcon = ({
   const _handleDeleteAppliedClick = async (e) => {
     e.preventDefault();
     const DeleteAppliedResponse = await fetch(
-      "http://127.0.0.1:3232/users/delete",
+      "http://127.0.0.1:3232/users/delete" ||
+        `${process.env.REACT_APP_SERVER_URL}/users/delete`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

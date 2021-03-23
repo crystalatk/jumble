@@ -19,7 +19,7 @@ const Deck = ({
     },
     onSwipedRight: async () => {
       console.log("I went right!");
-      //   const addToFaveResponse = await fetch("http://127.0.0.1:3232/users/add", {
+      //   const addToFaveResponse = await fetch("http://127.0.0.1:3232/users/add" || REACT_APP_SERVER_URL, {
       //     method: "POST",
       //     headers: { "Content-Type": "application/json" },
       //     body: JSON.stringify({
