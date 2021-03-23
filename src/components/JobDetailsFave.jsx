@@ -5,28 +5,31 @@ import HowToApply from "./HowToApply";
 import FaveIcon from "./FaveIcon";
 import AppliedIcon from "./AppliedIcon";
 
-const JobDetails = ({
+const JobDetailsFave = ({
   jobsList,
   userID,
   setFavoritesList,
   favoritesList,
   appliedList,
   setAppliedList,
+  trashedList,
+  setTrashedList,
 }) => {
   const { id } = useParams();
   const history = useHistory();
-  const job = jobsList?.find((job) => {
-    return job.id === id ? job : null;
+  const job = favoritesList?.find((job) => {
+    console.log("THIS IS THE JOB ID: ", job.job_id);
+    return job.job_id === id ? job : null;
   });
-  const [faveIcon, setFaveIcon] = useState("/icons/heart-3-line.png");
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [faveIcon, setFaveIcon] = useState("/icons/heart-3-fill.png");
+  const [isFavorite, setIsFavorite] = useState(true);
   const [appliedIcon, setAppliedIcon] = useState(
     "/icons/checkbox-blank-line.png"
   );
   const [isApplied, setIsApplied] = useState(false);
 
   useEffect(() => {
-    setIsFavorite(favoritesList.some((favorite) => favorite.job_id === job.id));
+    setIsFavorite(favoritesList.some((favorite) => favorite.job_id === id));
   }, [favoritesList]);
 
   useEffect(() => {
@@ -73,10 +76,12 @@ const JobDetails = ({
                   userID={userID}
                   isFavorite={isFavorite}
                   job={job}
-                  jobID={job.id}
+                  jobID={job.job_id}
                   favoritesList={favoritesList}
                   setFavoritesList={setFavoritesList}
                   faveIcon={faveIcon}
+                  trashedList={trashedList}
+                  setTrashedList={setTrashedList}
                 />
                 <AppliedIcon
                   userID={userID}
@@ -119,4 +124,4 @@ const JobDetails = ({
   );
 };
 
-export default JobDetails;
+export default JobDetailsFave;

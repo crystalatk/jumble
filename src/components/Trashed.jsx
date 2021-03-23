@@ -1,29 +1,26 @@
-import FaveListItem from "./FaveListItem";
+import TrashedListItem from "./TrashedListItem";
 
-const Favorites = ({
-  favoritesList,
-  setFavoritesList,
+const Trashed = ({
   userID,
-  appliedList,
-  setAppliedList,
   trashedList,
   setTrashedList,
+  setFavoritesList,
+  favoritesList,
 }) => {
   return (
     <>
-      <h1>Your favorite Jobs!</h1>
-      {!!favoritesList.length ? (
+      <h1>Dumpster Fire!</h1>
+      {!!trashedList.length ? (
         <ul data-testid="jobsList" className="ul">
-          {favoritesList.map((job) => {
+          {trashedList.map((job) => {
             return (
-              <FaveListItem
+              <TrashedListItem
                 job={job}
+                jobID={job.job_id}
                 userID={userID}
                 favoritesList={favoritesList}
                 setFavoritesList={setFavoritesList}
-                key={job.id}
-                appliedList={appliedList}
-                setAppliedList={setAppliedList}
+                key={job.job_id}
                 trashedList={trashedList}
                 setTrashedList={setTrashedList}
               />
@@ -31,10 +28,10 @@ const Favorites = ({
           })}
         </ul>
       ) : (
-        <p>No Favorite Jobs</p>
+        <p>Trashcan is empty</p>
       )}
     </>
   );
 };
 
-export default Favorites;
+export default Trashed;

@@ -4,32 +4,16 @@ import FaveIcon from "./FaveIcon";
 import AppliedIcon from "./AppliedIcon";
 
 const AppliedListItem = ({
-  jobsList,
   userID,
-  setFavoritesList,
-  favoritesList,
   appliedList,
   setAppliedList,
   job,
+  jobID,
 }) => {
-  const [faveIcon, setFaveIcon] = useState("/icons/heart-3-line.png");
-  const [isFavorite, setIsFavorite] = useState(false);
   const [appliedIcon, setAppliedIcon] = useState(
     "/icons/checkbox-blank-line.png"
   );
-  const [isApplied, setIsApplied] = useState(false);
-
-  useEffect(() => {
-    setIsFavorite(
-      favoritesList.some((favorite) => favorite.job_id === job.job_id)
-    );
-  }, [favoritesList]);
-
-  useEffect(() => {
-    setFaveIcon(
-      isFavorite ? "/icons/heart-3-fill.png" : "/icons/heart-3-line.png"
-    );
-  }, [isFavorite]);
+  const [isApplied, setIsApplied] = useState(true);
 
   useEffect(() => {
     setIsApplied(appliedList.some((applied) => applied.job_id === job.job_id));
@@ -44,19 +28,10 @@ const AppliedListItem = ({
   return (
     <>
       <li className="card">
-        <Link data-testid={job.id} to={`/job/${job.id}`}>
+        <Link data-testid={job.id} to={`/app/${job.job_id}`}>
           <div className="card-header">
             <img src={job.company_logo} alt="Company Logo" className="logo" />
             <br />
-            <FaveIcon
-              userID={userID}
-              isFavorite={isFavorite}
-              job={job}
-              jobID={job.job_id}
-              favoritesList={favoritesList}
-              setFavoritesList={setFavoritesList}
-              faveIcon={faveIcon}
-            />
             <AppliedIcon
               userID={userID}
               isApplied={isApplied}

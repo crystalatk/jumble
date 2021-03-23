@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
 import JobListItem from "./JobListItem";
 
 const JobList = ({
@@ -9,6 +7,8 @@ const JobList = ({
   setFavoritesList,
   appliedList,
   setAppliedList,
+  trashedList,
+  setTrashedList,
 }) => {
   return (
     <>
@@ -25,6 +25,8 @@ const JobList = ({
                 key={job.id}
                 appliedList={appliedList}
                 setAppliedList={setAppliedList}
+                trashedList={trashedList}
+                setTrashedList={setTrashedList}
               />
             );
           })}
