@@ -1,15 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import FaveIcon from "./FaveIcon";
+
 import AppliedIcon from "./AppliedIcon";
 
-const AppliedListItem = ({
-  userID,
-  appliedList,
-  setAppliedList,
-  job,
-  jobID,
-}) => {
+const AppliedListItem = ({ userID, appliedList, setAppliedList, job }) => {
   const [appliedIcon, setAppliedIcon] = useState(
     "/icons/checkbox-blank-line.png"
   );

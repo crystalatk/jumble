@@ -19,7 +19,7 @@ const JobListItem = ({
       console.log("I went left!");
       if (userID) {
         const addToTrashResponse = await fetch(
-          "http://127.0.0.1:3232/users/add",
+          `${process.env.REACT_APP_SERVER_URL}users/add`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -58,7 +58,7 @@ const JobListItem = ({
       console.log("I went right!");
       if (userID) {
         const addToFaveResponse = await fetch(
-          "http://127.0.0.1:3232/users/add",
+          `${process.env.REACT_APP_SERVER_URL}users/add`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },

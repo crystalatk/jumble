@@ -31,25 +31,28 @@ const FaveListItem = ({
 
   const _handleDeleteFaveClick = async (e) => {
     e.preventDefault();
-    const addToTrashResponse = await fetch("http://127.0.0.1:3232/users/add", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        user_id: userID,
-        job_id: job.job_id,
-        title: job.title,
-        location: job.location,
-        company: job.company,
-        company_url: job.company_url,
-        created_at: job.created_at,
-        description: job.description,
-        how_to_apply: job.how_to_apply,
-        company_logo: job.company_logo,
-        table: "trashed",
-      }),
-    });
+    const addToTrashResponse = await fetch(
+      `${process.env.REACT_APP_SERVER_URL}users/add`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user_id: userID,
+          job_id: job.job_id,
+          title: job.title,
+          location: job.location,
+          company: job.company,
+          company_url: job.company_url,
+          created_at: job.created_at,
+          description: job.description,
+          how_to_apply: job.how_to_apply,
+          company_logo: job.company_logo,
+          table: "trashed",
+        }),
+      }
+    );
     const DeleteFaveResponse = await fetch(
-      "http://127.0.0.1:3232/users/delete",
+      `${process.env.REACT_APP_SERVER_URL}users/delete`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

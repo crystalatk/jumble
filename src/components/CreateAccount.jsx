@@ -52,19 +52,22 @@ const CreateAccount = () => {
   const _handleSubmit = async (e) => {
     e.preventDefault();
     if (password2 === password) {
-      const submitResponse = await fetch("http://127.0.0.1:3232/users/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: userName,
-          password: password,
-          first_name: firstName,
-          last_name: lastName,
-          zip_code: zipCode,
-          phone_num: phoneNumber,
-          picture: avatar,
-        }),
-      }).then((response) => response);
+      const submitResponse = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}users/signup`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: userName,
+            password: password,
+            first_name: firstName,
+            last_name: lastName,
+            zip_code: zipCode,
+            phone_num: phoneNumber,
+            picture: avatar,
+          }),
+        }
+      ).then((response) => response);
       console.log("CREATE ACCOUNT RESPONSE IS: ", submitResponse.json());
     } else {
       return alert("Passwords must match to continue!");
