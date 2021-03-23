@@ -78,6 +78,21 @@ const FaveListItem = ({
       },
       ...trashedList,
     ]);
+    const deleteAppliedResponse = await fetch(
+      `${process.env.REACT_APP_SERVER_URL}users/delete`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user_id: userID,
+          job_id: job.job_id,
+          table: "applied",
+        }),
+      }
+    );
+    setAppliedList(
+      appliedList.filter((applied) => applied.job_id !== job.job_id)
+    );
     setFavoritesList(
       favoritesList.filter((favorite) => favorite.job_id !== job.job_id)
     );
