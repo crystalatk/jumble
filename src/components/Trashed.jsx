@@ -1,37 +1,36 @@
-import JobListItem from "./JobListItem";
+import TrashedListItem from "./TrashedListItem";
 
-const JobList = ({
-  jobsList,
+const Trashed = ({
   userID,
-  favoritesList,
+  trashedList,
+  setTrashedList,
   setFavoritesList,
-  appliedList,
-  setAppliedList,
+  favoritesList,
 }) => {
   return (
     <>
-      <h1>Available Jobs:</h1>
-      {!!jobsList.length ? (
+      <h1>Dumpster Fire!</h1>
+      {!!trashedList.length ? (
         <ul data-testid="jobsList" className="ul">
-          {jobsList.map((job) => {
+          {trashedList.map((job) => {
             return (
-              <JobListItem
+              <TrashedListItem
                 job={job}
                 userID={userID}
                 favoritesList={favoritesList}
                 setFavoritesList={setFavoritesList}
                 key={job.id}
-                appliedList={appliedList}
-                setAppliedList={setAppliedList}
+                trashedList={trashedList}
+                setTrashedList={setTrashedList}
               />
             );
           })}
         </ul>
       ) : (
-        <p>Jobs Loading....</p>
+        <p>Trashcan is empty</p>
       )}
     </>
   );
 };
 
-export default JobList;
+export default Trashed;

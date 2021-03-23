@@ -5,6 +5,7 @@ import JobDetails from "./components/JobDetails";
 import Input from "./components/Input";
 import Login from "./components/Login";
 import CreateAccount from "./components/CreateAccount";
+import Deck from "./components/Deck";
 import Favorites from "./components/Favorites";
 import Applied from "./components/Applied";
 import "./App.css";
@@ -16,6 +17,7 @@ function App() {
   const [userID, setUserID] = useState("");
   const [favoritesList, setFavoritesList] = useState([]);
   const [appliedList, setAppliedList] = useState([]);
+  const [trashedList, setTrashedList] = useState([]);
 
   const fetchFaves = async () => {
     const favesData = await fetch(
@@ -25,7 +27,7 @@ function App() {
   };
 
   useEffect(() => {
-    fetchFaves();
+    userID && fetchFaves();
   }, [userID]);
 
   const fetchApplied = async () => {
@@ -36,8 +38,30 @@ function App() {
   };
 
   useEffect(() => {
-    fetchApplied();
+    userID && fetchApplied();
   }, [userID]);
+
+  const fetchTrashed = async () => {
+    const trashedData = await fetch(
+      `http://127.0.0.1:3232/users/userList?user_id=${userID}&table=trashed`
+    );
+    setTrashedList(await trashedData.json());
+  };
+
+  useEffect(() => {
+    userID && fetchTrashed();
+  }, [userID]);
+
+  useEffect(() => {
+    setJobsList(
+      jobsList.filter(
+        (job) =>
+          !favoritesList.some((faveJob) => job.id === faveJob.job_id) &&
+          !appliedList.some((appliedJob) => job.id === appliedJob.job_id) &&
+          !trashedList.some((trashedJob) => job.id === trashedJob.job_id)
+      )
+    );
+  }, [favoritesList, appliedList]);
 
   const _handleLogOutClick = (e) => {
     e.preventDefault();
@@ -65,14 +89,32 @@ function App() {
               <Link to="/applied" className="f-light f-small m-10">
                 Click here to view Jobs Applied
               </Link>
+              <Link to="/trashed" className="f-light f-small m-10">
+                Need to dig through the trash? See your trashed jobs here.
+              </Link>
             </>
           ) : (
             <Login setIsLoggedIn={setIsLoggedIn} setUserID={setUserID} />
           )}
         </header>
+
         <Route exact path="/">
-          <Input setJobsList={setJobsList} setSearch={setSearch} />
+          <Input
+            setJobsList={setJobsList}
+            setSearch={setSearch}
+            favoritesList={favoritesList}
+            appliedList={appliedList}
+          />
+
           {!!search ? (
+            // <Deck
+            //   jobsList={jobsList}
+            //   userID={userID}
+            //   favoritesList={favoritesList}
+            //   setFavoritesList={setFavoritesList}
+            //   appliedList={appliedList}
+            //   setAppliedList={setAppliedList}
+            // />
             <JobList
               jobsList={jobsList}
               userID={userID}
@@ -116,6 +158,14 @@ function App() {
             setFavoritesList={setFavoritesList}
             appliedList={appliedList}
             setAppliedList={setAppliedList}
+          />
+        </Route>
+        <Route path="/trashed">
+          <Trashed
+            favoritesList={favoritesList}
+            setFavoritesList={setFavoritesList}
+            userID={userID}
+            trashedList={trashedList}
           />
         </Route>
       </Router>

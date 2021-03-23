@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-const ProgLangInput = ({ setJobsList, setSearch }) => {
+const ProgLangInput = ({
+  setJobsList,
+  setSearch,
+  favoritesList,
+  appliedList,
+}) => {
   const [progLang, setProgLang] = useState("");
   const [zip, setZip] = useState("");
   const [submitError, setSubmitError] = useState("");
