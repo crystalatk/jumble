@@ -53,6 +53,7 @@ const ProgLangInput = ({
 
   return (
     <>
+      <h2>Search Available Jobs:</h2>
       <form onSubmit={_handleSubmit}>
         <label>
           Programming Language

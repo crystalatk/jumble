@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 const CreateAccount = () => {
   const [userName, setUserName] = useState("");
@@ -9,7 +10,9 @@ const CreateAccount = () => {
   const [zipCode, setZipCode] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [avatar, setAvatar] = useState("");
+  const [usernameTaken, setUsernameTaken] = useState(false);
   const [matchingPasswords, setMatchingPasswords] = useState(true);
+  const history = useHistory();
 
   const _handleUserNameChange = (e) => {
     setUserName(e.target.value);
@@ -51,33 +54,52 @@ const CreateAccount = () => {
 
   const _handleSubmit = async (e) => {
     e.preventDefault();
-    if (password2 === password) {
-      const submitResponse = await fetch(
-        `${process.env.REACT_APP_SERVER_URL}users/signup`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            username: userName,
-            password: password,
-            first_name: firstName,
-            last_name: lastName,
-            zip_code: zipCode,
-            phone_num: phoneNumber,
-            picture: avatar,
-          }),
-        }
-      ).then((response) => response);
-      console.log("CREATE ACCOUNT RESPONSE IS: ", submitResponse.json());
+    const isUsername = await fetch(
+      `${process.env.REACT_APP_SERVER_URL}users/username/?username=${userName}`
+    ).then((response) => response.json());
+    console.log("THIS IS THE ISUSESRNAME RESPONSE: ", isUsername);
+    if (!isUsername) {
+      if (password2 === password) {
+        const submitResponse = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}users/signup`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              username: userName,
+              password: password,
+              first_name: firstName,
+              last_name: lastName,
+              zip_code: zipCode,
+              phone_num: phoneNumber,
+              picture: avatar,
+            }),
+          }
+        ).then((response) => response);
+        alert("Your account has been created!");
+        setAvatar("");
+        setFirstName("");
+        setLastName("");
+        setMatchingPasswords(true);
+        setPassword("");
+        setPassword2("");
+        setPhoneNumber("");
+        setUserName("");
+        setZipCode("");
+        setUsernameTaken(false);
+        history.push("/");
+      } else {
+        return alert("Passwords must match to continue!");
+      }
     } else {
-      return alert("Passwords must match to continue!");
+      setUsernameTaken(true);
     }
   };
 
   return (
     <>
       <h1>Create an Account:</h1>
-      <form onSubmit={_handleSubmit}>
+      <form onSubmit={_handleSubmit} className="create-account b-blue ">
         <label>
           Create a UserName
           <input
@@ -86,6 +108,10 @@ const CreateAccount = () => {
             onChange={_handleUserNameChange}
           />
         </label>
+        {!!usernameTaken ? (
+          <h6 className="f-red f-small">Please choose another username.</h6>
+        ) : null}
+        <br />
         <label>
           Create a Password
           <input
@@ -94,6 +120,7 @@ const CreateAccount = () => {
             onChange={_handlePasswordChange}
           />
         </label>
+        <br />
         <label>
           Retype your password
           <input
@@ -121,10 +148,12 @@ const CreateAccount = () => {
             onChange={_handleLastNameChange}
           />
         </label>
+        <br />
         <label>
           Zip Code:
           <input type="text" value={zipCode} onChange={_handleZipCodeChange} />
         </label>
+        <br />
         <label>
           Phone #:
           <input
@@ -134,7 +163,7 @@ const CreateAccount = () => {
           />
         </label>
         <br />
-        Please choose an avatar:
+        <h3 className="m-10">Please choose an avatar:</h3>
         <br />
         <div>
           <label>
@@ -177,6 +206,7 @@ const CreateAccount = () => {
               onChange={_handleAvatarChange}
             />
           </label>
+          <br />
           <label>
             <img
               src={"/images/fog.jpg"}
@@ -216,6 +246,7 @@ const CreateAccount = () => {
               onChange={_handleAvatarChange}
             />
           </label>
+
           <label>
             <img
               src={"/images/snow_lake.jpg"}
@@ -229,6 +260,7 @@ const CreateAccount = () => {
               onChange={_handleAvatarChange}
             />
           </label>
+          <br />
           <label>
             <img
               src={"/images/snow.jpg"}
@@ -270,6 +302,9 @@ const CreateAccount = () => {
           </label>
         </div>
         <button type="submit">Create my Account!</button>
+        {!!usernameTaken ? (
+          <h6 className="f-red f-small">Your username is taken.</h6>
+        ) : null}
       </form>
     </>
   );

@@ -116,8 +116,8 @@ const JobDetailsFave = ({
           </div>
         </>
       ) : (
-        <Link to="/">
-          <h3 className="f-light">No Job Loaded. Click to return to search.</h3>
+        <Link to="/favorites">
+          <h3 className="f-light">No job loaded. Click to return to search.</h3>
         </Link>
       )}
     </>
