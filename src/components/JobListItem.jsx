@@ -129,7 +129,15 @@ const JobListItem = ({
         <Link data-testid={job.id} to={`/job/${job.id}`}>
           <div {...handlers}>
             <div className="card-header">
-              <img src={job.company_logo} alt="Company Logo" className="logo" />
+              {job.company_logo ? (
+                <img
+                  src={job.company_logo}
+                  alt="Company Logo"
+                  className="logo"
+                />
+              ) : (
+                <h3>{job.company}</h3>
+              )}
               <br />
               <FaveIcon
                 userID={userID}

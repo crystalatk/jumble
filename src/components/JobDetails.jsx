@@ -61,35 +61,12 @@ const JobDetails = ({
           <button
             data-testid="backButton"
             type="button"
-            className="back-button"
+            className="back-button button-light"
             onClick={() => history.goBack()}
           >
             GO BACK
           </button>
           <div className="job-details">
-            {/* {userID ? (
-              <div className="block">
-                <FaveIcon
-                  userID={userID}
-                  isFavorite={isFavorite}
-                  job={job}
-                  jobID={job.id}
-                  favoritesList={favoritesList}
-                  setFavoritesList={setFavoritesList}
-                  faveIcon={faveIcon}
-                />
-                <AppliedIcon
-                  userID={userID}
-                  isApplied={isApplied}
-                  job={job}
-                  jobID={job.id}
-                  appliedList={appliedList}
-                  setAppliedList={setAppliedList}
-                  appliedIcon={appliedIcon}
-                />
-              </div>
-            ) : null} */}
-
             <br />
             <img
               src={job.company_logo}
@@ -112,7 +89,7 @@ const JobDetails = ({
         </>
       ) : (
         <Link to="/">
-          <h3 className="f-light">No Job Loaded. Click to return to search.</h3>
+          <h3 className="f-light">No job loaded. Click to return to search.</h3>
         </Link>
       )}
     </>

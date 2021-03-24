@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import AppliedListItem from "./AppliedListItem";
 
 const Applied = ({
@@ -27,7 +28,12 @@ const Applied = ({
               })}
             </ul>
           ) : (
-            <p>No Applied Jobs</p>
+            <>
+              <p>No Applied Jobs Yet...</p>
+              <Link to="/" className="f-light">
+                Click here to search!
+              </Link>
+            </>
           )}
         </>
       ) : (

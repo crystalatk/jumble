@@ -24,7 +24,11 @@ const AppliedListItem = ({ userID, appliedList, setAppliedList, job }) => {
       <li className="card">
         <Link data-testid={job.id} to={`/app/${job.job_id}`}>
           <div className="card-header">
-            <img src={job.company_logo} alt="Company Logo" className="logo" />
+            {job.company_logo ? (
+              <img src={job.company_logo} alt="Company Logo" className="logo" />
+            ) : (
+              <h3>{job.company}</h3>
+            )}
             <br />
             <AppliedIcon
               userID={userID}

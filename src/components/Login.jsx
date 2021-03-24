@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
 
 const Login = ({ setIsLoggedIn, setUserID }) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [loginFail, setLoginFail] = useState(false);
+  const history = useHistory();
 
   const _handleUserNameChange = (e) => {
     setUserName(e.target.value);
@@ -43,12 +44,13 @@ const Login = ({ setIsLoggedIn, setUserID }) => {
       setIsLoggedIn(true);
       setUserID(loginResponse.user_id);
       setLoginFail(false);
+      history.push("/");
     }
   };
 
   return (
     <div className="login">
-      <h3 data-testid="title">Login to Save Jobs or view your favorites!</h3>
+      <h3 data-testid="title">Login to save jobs & view your favorites!</h3>
       <form onSubmit={_handleLogin}>
         <label>
           {" "}
@@ -73,7 +75,7 @@ const Login = ({ setIsLoggedIn, setUserID }) => {
         <button type="submit">Login!</button>
         {!!loginFail ? (
           <h6 className="f-red f-small">
-            Your username and password do not match
+            Your username and password do not match.
           </h6>
         ) : null}
       </form>

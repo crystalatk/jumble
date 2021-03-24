@@ -31,7 +31,22 @@ const TrashedListItem = ({
       <li className="card">
         <Link data-testid={job.id} to={`/trash/${jobID}`}>
           <div className="card-header">
-            <img src={job.company_logo} alt="Company Logo" className="logo" />
+            {job.company_logo ? (
+              <>
+                <img
+                  src={job.company_logo}
+                  alt="Company Logo"
+                  className="logo"
+                />
+                <br />
+              </>
+            ) : (
+              <>
+                <br />
+                <h3>{job.company}</h3>
+              </>
+            )}
+
             <br />
             <FaveIcon
               userID={userID}

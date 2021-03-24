@@ -23,7 +23,7 @@ const JobDetailsTrashed = ({ trashedList }) => {
           <button
             data-testid="backButton"
             type="button"
-            className="back-button"
+            className="back-button button-light"
             onClick={() => history.goBack()}
           >
             GO BACK
@@ -50,8 +50,8 @@ const JobDetailsTrashed = ({ trashedList }) => {
           </div>
         </>
       ) : (
-        <Link to="/">
-          <h3 className="f-light">No Job Loaded. Click to return to search.</h3>
+        <Link to="/trashed">
+          <h3 className="f-light">No job loaded. Click to return to search.</h3>
         </Link>
       )}
     </>

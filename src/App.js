@@ -4,8 +4,8 @@ import JobList from "./components/JobList";
 import JobDetails from "./components/JobDetails";
 import Input from "./components/Input";
 import Login from "./components/Login";
+import Logout from "./components/Logout";
 import CreateAccount from "./components/CreateAccount";
-
 import Favorites from "./components/Favorites";
 import Applied from "./components/Applied";
 import Trashed from "./components/Trashed";
@@ -19,6 +19,7 @@ function App() {
   const [search, setSearch] = useState(false);
   const [isLoggedin, setIsLoggedIn] = useState(false);
   const [userID, setUserID] = useState("");
+  const [userInfo, setUserInfo] = useState([]);
   const [favoritesList, setFavoritesList] = useState([]);
   const [appliedList, setAppliedList] = useState([]);
   const [trashedList, setTrashedList] = useState([]);
@@ -28,6 +29,17 @@ function App() {
       `${process.env.REACT_APP_SERVER_URL}users/userList?user_id=${userID}&table=favorites`
     );
     setFavoritesList(await favesData.json());
+  };
+
+  useEffect(() => {
+    userID && fetchUserInfo();
+  }, [userID]);
+
+  const fetchUserInfo = async () => {
+    const userData = await fetch(
+      `${process.env.REACT_APP_SERVER_URL}users/userInfo?user_id=${userID}&table=users`
+    );
+    setUserInfo(await userData.json());
   };
 
   useEffect(() => {
@@ -67,37 +79,55 @@ function App() {
     );
   }, [favoritesList, appliedList, trashedList, userID]);
 
-  const _handleLogOutClick = (e) => {
-    e.preventDefault();
-    setIsLoggedIn(false);
-    setUserID("");
-    setAppliedList([]);
-    setFavoritesList([]);
-  };
+  useEffect(() => {
+    console.log("USER INFO:", userInfo);
+  }, [userInfo]);
 
   return (
     <div className="App">
       <Router>
-        <header className="App-header">
+        <header
+          className="App-header"
+          style={{
+            backgroundImage: `url(${userInfo.picture})`,
+            backgroundSize: "100vw",
+            backgroundRepeat: "no-repeat",
+          }}
+        >
           <Link to="/">
-            <h1 className="f-light">Jumble</h1>
+            <h1 className="f-light f-shadow-big">Jumble</h1>
           </Link>
           {isLoggedin ? (
             <>
-              <Link to="/">
-                <button type="button" onClick={_handleLogOutClick}>
-                  Log Out
-                </button>
-              </Link>
-              <Link to="/favorites" className="f-light f-small m-10">
-                Click here to view Favorites
-              </Link>
-              <Link to="/applied" className="f-light f-small m-10">
-                Click here to view Jobs Applied
-              </Link>
-              <Link to="/trashed" className="f-light f-small m-10">
-                Need to dig through the trash? See your trashed jobs here.
-              </Link>
+              <div>
+                <h4 className="m-10 in-line  f-shadow-med">
+                  Welcome, {userInfo.first_name}!
+                </h4>
+              </div>
+              <div className="in-line f-med">
+                <Link to="/" className="f-light m-10">
+                  <button className="f-med">Search</button>
+                </Link>
+                <Logout
+                  setIsLoggedIn={setIsLoggedIn}
+                  setUserID={setUserID}
+                  setAppliedList={setAppliedList}
+                  setFavoritesList={setFavoritesList}
+                  setUserInfo={setUserInfo}
+                />
+              </div>
+
+              <div className="in-line m-10 f-small">
+                <Link to="/favorites" className="f-light f-small m-10">
+                  <button>Favorites!</button>
+                </Link>
+                <Link to="/applied" className="f-light f-small m-10">
+                  <button>Applied!</button>
+                </Link>
+                <Link to="/trashed" className="f-light f-small m-10">
+                  <button>Trashed!</button>
+                </Link>
+              </div>
             </>
           ) : (
             <Login setIsLoggedIn={setIsLoggedIn} setUserID={setUserID} />
@@ -114,14 +144,6 @@ function App() {
           />
 
           {!!search ? (
-            // <Deck
-            //   jobsList={jobsList}
-            //   userID={userID}
-            //   favoritesList={favoritesList}
-            //   setFavoritesList={setFavoritesList}
-            //   appliedList={appliedList}
-            //   setAppliedList={setAppliedList}
-            // />
             <JobList
               jobsList={jobsList}
               userID={userID}

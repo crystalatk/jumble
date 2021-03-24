@@ -53,27 +53,36 @@ const ProgLangInput = ({
 
   return (
     <>
+      <h2>Search Available Jobs:</h2>
       <form onSubmit={_handleSubmit}>
-        <label>
-          Programming Language
+        <div className="no-wrap">
+          <label htmlFor="progLang">Programming Language:</label>
           <input
+            id="progLang"
             name="prog_lang"
             type="text"
             value={progLang}
             onChange={_handleLangChange}
             data-testid="inputField"
           />
-        </label>
-        <label>
-          Zip Code
+        </div>
+        <div className="no-wrap">
+          <label htmlFor="zipCode" className="no-in-line">
+            Zip Code:
+          </label>
           <input
+            id="zipCode"
             name="zipCode"
             type="text"
             value={zip}
             onChange={_handleZipChange}
           />
-        </label>
-        <button type="submit" data-testid="searchButton">
+        </div>
+        <button
+          className="button-light"
+          type="submit"
+          data-testid="searchButton"
+        >
           Search
         </button>
       </form>

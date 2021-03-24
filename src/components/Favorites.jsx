@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import FaveListItem from "./FaveListItem";
 
 const Favorites = ({
@@ -13,7 +14,7 @@ const Favorites = ({
     <>
       {!!userID ? (
         <>
-          <h1>Your favorite Jobs!</h1>
+          <h1>Your Favorite Jobs!</h1>
           {!!favoritesList.length ? (
             <ul data-testid="jobsList" className="ul">
               {favoritesList.map((job) => {
@@ -33,7 +34,12 @@ const Favorites = ({
               })}
             </ul>
           ) : (
-            <p>No Favorite Jobs</p>
+            <>
+              <p>No Favorite Jobs Yet...</p>
+              <Link to="/" className="f-light">
+                Click here to search!
+              </Link>
+            </>
           )}
         </>
       ) : (
