@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useAlert } from "react-alert";
 
 const CreateAccount = () => {
   const [userName, setUserName] = useState("");
@@ -13,6 +14,7 @@ const CreateAccount = () => {
   const [usernameTaken, setUsernameTaken] = useState(false);
   const [matchingPasswords, setMatchingPasswords] = useState(true);
   const history = useHistory();
+  const myAlert = useAlert();
 
   const _handleUserNameChange = (e) => {
     setUserName(e.target.value);
@@ -58,7 +60,7 @@ const CreateAccount = () => {
       `${process.env.REACT_APP_SERVER_URL}users/username/?username=${userName}`
     ).then((response) => response.json());
     console.log("THIS IS THE ISUSESRNAME RESPONSE: ", isUsername);
-    if (!isUsername) {
+    if (isUsername) {
       if (password2 === password) {
         const submitResponse = await fetch(
           `${process.env.REACT_APP_SERVER_URL}users/signup`,
@@ -76,7 +78,7 @@ const CreateAccount = () => {
             }),
           }
         ).then((response) => response);
-        alert("Your account has been created!");
+        myAlert.success("Your account has been created!");
         setAvatar("");
         setFirstName("");
         setLastName("");
@@ -89,9 +91,19 @@ const CreateAccount = () => {
         setUsernameTaken(false);
         history.push("/");
       } else {
-        return alert("Passwords must match to continue!");
+        myAlert.error("You broke it...");
       }
     } else {
+      myAlert.error("You broke it!");
+      setTimeout(() => {
+        myAlert.error("Just kidding.");
+      }, 1000);
+      setTimeout(() => {
+        myAlert.error("That username is super popular.");
+      }, 2000);
+      setTimeout(() => {
+        myAlert.error("Choose something else.");
+      }, 3000);
       setUsernameTaken(true);
     }
   };

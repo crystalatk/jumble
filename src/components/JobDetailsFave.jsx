@@ -64,37 +64,12 @@ const JobDetailsFave = ({
           <button
             data-testid="backButton"
             type="button"
-            className="back-button"
+            className="back-button button-light"
             onClick={() => history.goBack()}
           >
             GO BACK
           </button>
           <div className="job-details">
-            {/* {userID ? (
-              <div className="block">
-                <FaveIcon
-                  userID={userID}
-                  isFavorite={isFavorite}
-                  job={job}
-                  jobID={job.job_id}
-                  favoritesList={favoritesList}
-                  setFavoritesList={setFavoritesList}
-                  faveIcon={faveIcon}
-                  trashedList={trashedList}
-                  setTrashedList={setTrashedList}
-                />
-                <AppliedIcon
-                  userID={userID}
-                  isApplied={isApplied}
-                  job={job}
-                  jobID={job.id}
-                  appliedList={appliedList}
-                  setAppliedList={setAppliedList}
-                  appliedIcon={appliedIcon}
-                />
-              </div>
-            ) : null} */}
-
             <br />
             <img
               src={job.company_logo}

@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=New+Tegomin&family=Poppins&display=swap");
+
 * {
   box-sizing: border-box;
 }
@@ -6,8 +8,8 @@ html,
 body {
   background-color: #15213a;
   color: white;
-  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir,
-    helvetica neue, helvetica, ubuntu, roboto, noto, segoe ui, arial, sans-serif;
+  font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .App {
@@ -31,9 +33,29 @@ a {
 }
 
 h1 {
+  font-family: "New Tegomin", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   margin: 10px auto;
 }
+h2 {
+  font-family: "New Tegomin", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+h3 {
+  font-family: "New Tegomin", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+h4 {
+  font-family: "New Tegomin", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+h5 {
+  font-family: "New Tegomin", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
 h6 {
+  font-family: "New Tegomin", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   margin-block-start: 0em;
   margin-block-end: 0em;
 }
@@ -55,8 +77,17 @@ label {
 }
 
 button {
-  background-color: rgb(25, 95, 175);
-  border: 1px solid rgba(19, 60, 136, 0.705);
+  background-color: #192a50;
+  border: 1.5px solid rgba(50, 109, 218, 0.705);
+  border-radius: 20px;
+  color: aliceblue;
+  font-size: 12px;
+  padding: 5px 10px;
+}
+
+.button-light {
+  background-color: rgba(19, 60, 136);
+  border: 1.5px solid rgba(62, 119, 226, 0.705);
   border-radius: 20px;
   color: aliceblue;
   font-size: 12px;
@@ -107,6 +138,10 @@ button {
 
 .f-small {
   font-size: 10px;
+}
+
+.f-med {
+  font-size: 16px;
 }
 
 .f-shadow-big {
@@ -173,6 +208,10 @@ button {
 
 .in-line {
   display: inline-block;
+}
+
+.no-show {
+  display: none;
 }
 
 /* Pop-up instruction for icons */
@@ -249,4 +288,97 @@ button {
   border-radius: 10px;
   box-shadow: 0 12.5px 100px -10px rgba(14, 14, 22, 0.4),
     0 10px 10px -10px rgba(50, 50, 73, 0.3);
+}
+
+/* Media Queries */
+/* i-phone 5 */
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+  .App-header {
+    font-size: 24px;
+  }
+  .f-shadow-big {
+    text-shadow: 0 1px 0 #ccc, 0 1px 0 #c9c9c9, 0 1px 0 #bbb, 0 1px 0 #b9b9b9,
+      0 1px 0 #aaa, 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.1),
+      0 1px 1px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.2),
+      0 1px 1px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(0, 0, 0, 0.2),
+      0 1px 1px rgba(0, 0, 0, 0.15);
+  }
+  .f-shadow-med {
+    text-shadow: 0 1px 0 #ccc, 0 1px 0 #c9c9c9, 0 1px 0 #bbb, 0 1px 0 #b9b9b9,
+      0 1px 0 #aaa, 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.1),
+      0 1px 1px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.2),
+      0 1px 1px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(0, 0, 0, 0.2),
+      0 1px 1px rgba(0, 0, 0, 0.15);
+  }
+
+  .card {
+    border: 0 solid;
+    border-radius: 0;
+  }
+
+  .no-wrap {
+    white-space: inherit;
+  }
+
+  .no-in-line {
+    margin: auto 50px;
+  }
+}
+
+/* i-phone 6, 7, 8 */
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+  .App-header {
+    font-size: 24px;
+  }
+  .f-shadow-big {
+    text-shadow: 0 1px 0 #ccc, 0 1px 0 #c9c9c9, 0 1px 0 #bbb, 0 1px 0 #b9b9b9,
+      0 1px 0 #aaa, 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.1),
+      0 1px 1px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.2),
+      0 1px 1px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(0, 0, 0, 0.2),
+      0 1px 1px rgba(0, 0, 0, 0.15);
+  }
+  .f-shadow-med {
+    text-shadow: 0 1px 0 #ccc, 0 1px 0 #c9c9c9, 0 1px 0 #bbb, 0 1px 0 #b9b9b9,
+      0 1px 0 #aaa, 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.1),
+      0 1px 1px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.2),
+      0 1px 1px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(0, 0, 0, 0.2),
+      0 1px 1px rgba(0, 0, 0, 0.15);
+  }
+
+  .card {
+    border: 0 solid;
+    border-radius: 0;
+  }
+  .no-wrap {
+    white-space: nowrap;
+  }
+}
+
+/* i-phoneX */
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+  .App-header {
+    font-size: 24px;
+  }
+  .f-shadow-big {
+    text-shadow: 0 1px 0 #ccc, 0 1px 0 #c9c9c9, 0 1px 0 #bbb, 0 1px 0 #b9b9b9,
+      0 1px 0 #aaa, 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.1),
+      0 1px 1px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.2),
+      0 1px 1px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(0, 0, 0, 0.2),
+      0 1px 1px rgba(0, 0, 0, 0.15);
+  }
+  .f-shadow-med {
+    text-shadow: 0 1px 0 #ccc, 0 1px 0 #c9c9c9, 0 1px 0 #bbb, 0 1px 0 #b9b9b9,
+      0 1px 0 #aaa, 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.1),
+      0 1px 1px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.2),
+      0 1px 1px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(0, 0, 0, 0.2),
+      0 1px 1px rgba(0, 0, 0, 0.15);
+  }
+
+  .card {
+    border: 0 solid;
+    border-radius: 0;
+  }
+  .no-wrap {
+    white-space: nowrap;
+  }
 }

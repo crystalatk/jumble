@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import FaveListItem from "./FaveListItem";
 
 const Favorites = ({
@@ -33,7 +34,12 @@ const Favorites = ({
               })}
             </ul>
           ) : (
-            <p>No Favorite Jobs</p>
+            <>
+              <p>No Favorite Jobs Yet...</p>
+              <Link to="/" className="f-light">
+                Click here to search!
+              </Link>
+            </>
           )}
         </>
       ) : (

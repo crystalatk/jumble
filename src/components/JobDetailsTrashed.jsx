@@ -23,7 +23,7 @@ const JobDetailsTrashed = ({ trashedList }) => {
           <button
             data-testid="backButton"
             type="button"
-            className="back-button"
+            className="back-button button-light"
             onClick={() => history.goBack()}
           >
             GO BACK

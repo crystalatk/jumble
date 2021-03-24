@@ -20,7 +20,7 @@ const Logout = ({
   };
 
   return (
-    <button type="button" onClick={_handleLogOutClick}>
+    <button className="f-med" type="button" onClick={_handleLogOutClick}>
       Log Out
     </button>
   );

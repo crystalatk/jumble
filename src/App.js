@@ -100,41 +100,34 @@ function App() {
           {isLoggedin ? (
             <>
               <div>
-                {/* <img
-                  className="avatar in-line"
-                  src={userInfo.picture}
-                  alt="user avatar"
-                /> */}
                 <h4 className="m-10 in-line  f-shadow-med">
                   Welcome, {userInfo.first_name}!
                 </h4>
               </div>
+              <div className="in-line f-med">
+                <Link to="/" className="f-light m-10">
+                  <button className="f-med">Search</button>
+                </Link>
+                <Logout
+                  setIsLoggedIn={setIsLoggedIn}
+                  setUserID={setUserID}
+                  setAppliedList={setAppliedList}
+                  setFavoritesList={setFavoritesList}
+                  setUserInfo={setUserInfo}
+                />
+              </div>
 
-              <Logout
-                setIsLoggedIn={setIsLoggedIn}
-                setUserID={setUserID}
-                setAppliedList={setAppliedList}
-                setFavoritesList={setFavoritesList}
-                setUserInfo={setUserInfo}
-              />
-              <Link
-                to="/favorites"
-                className="f-light f-small m-10  f-shadow-tiny"
-              >
-                Click here to view Favorites
-              </Link>
-              <Link
-                to="/applied"
-                className="f-light f-small m-10  f-shadow-tiny"
-              >
-                Click here to view Jobs Applied
-              </Link>
-              <Link
-                to="/trashed"
-                className="f-light f-small m-10  f-shadow-tiny"
-              >
-                Need to dig through the trash? See your trashed jobs here.
-              </Link>
+              <div className="in-line m-10 f-small">
+                <Link to="/favorites" className="f-light f-small m-10">
+                  <button>Favorites!</button>
+                </Link>
+                <Link to="/applied" className="f-light f-small m-10">
+                  <button>Applied!</button>
+                </Link>
+                <Link to="/trashed" className="f-light f-small m-10">
+                  <button>Trashed!</button>
+                </Link>
+              </div>
             </>
           ) : (
             <Login setIsLoggedIn={setIsLoggedIn} setUserID={setUserID} />
