@@ -29,7 +29,7 @@ const TrashedListItem = ({
   return (
     <>
       <li className="card">
-        <Link data-testid={job.id} to={`/trash/${jobID}`}>
+        <Link data-testid={job.id} to={`/trash/${job.job_id}`}>
           <div className="card-header">
             {job.company_logo ? (
               <>

@@ -6,6 +6,8 @@ const ProgLangInput = ({
   favoritesList,
   appliedList,
   trashedList,
+  isEmpty,
+  setIsEmpty,
 }) => {
   const [progLang, setProgLang] = useState("");
   const [zip, setZip] = useState("");
@@ -35,15 +37,21 @@ const ProgLangInput = ({
       });
     console.log("This is the jobList DATA: ", submitResponse);
     if (submitResponse) {
-      setJobsList(
-        submitResponse.filter(
-          (job) =>
-            !favoritesList.some((faveJob) => job.id === faveJob.job_id) &&
-            !appliedList.some((appliedJob) => job.id === appliedJob.job_id) &&
-            !trashedList.some((trashedJob) => job.id === trashedJob.job_id)
-        )
-      );
-      setSubmitError(null);
+      if (submitResponse.length > 0) {
+        setJobsList(
+          submitResponse.filter(
+            (job) =>
+              !favoritesList.some((faveJob) => job.id === faveJob.job_id) &&
+              !appliedList.some((appliedJob) => job.id === appliedJob.job_id) &&
+              !trashedList.some((trashedJob) => job.id === trashedJob.job_id)
+          )
+        );
+        setSubmitError(null);
+        setIsEmpty(false);
+      } else {
+        setSearch(false);
+        setIsEmpty(true);
+      }
     } else {
       setSubmitError(
         "You've been triple crystalized!!!! i.e. you don't have any data coming in..."

@@ -66,7 +66,7 @@ const FaveListItem = ({
 
     setTrashedList([
       {
-        job_id: job.id,
+        job_id: job.job_id,
         title: job.title,
         location: job.location,
         company: job.company,

@@ -10,7 +10,7 @@ const CreateAccount = () => {
   const [lastName, setLastName] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState("/images/baloons.jpg");
   const [usernameTaken, setUsernameTaken] = useState(false);
   const [matchingPasswords, setMatchingPasswords] = useState(true);
   const history = useHistory();
