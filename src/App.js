@@ -17,6 +17,7 @@ import "./App.css";
 function App() {
   const [jobsList, setJobsList] = useState([]);
   const [search, setSearch] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
   const [isLoggedin, setIsLoggedIn] = useState(false);
   const [userID, setUserID] = useState("");
   const [userInfo, setUserInfo] = useState([]);
@@ -141,6 +142,8 @@ function App() {
             favoritesList={favoritesList}
             appliedList={appliedList}
             trashedList={trashedList}
+            isEmpty={isEmpty}
+            setIsEmpty={setIsEmpty}
           />
 
           {!!search ? (
@@ -155,10 +158,13 @@ function App() {
               setTrashedList={setTrashedList}
             />
           ) : (
-            <p className="f-light">
+            <h2 className="f-light">
               Choose a language and location to find available jobs
-            </p>
+            </h2>
           )}
+          {!!isEmpty ? (
+            <h3>Your search has no results. Please change the parameters.</h3>
+          ) : null}
         </Route>
         <Route path="/job/:id">
           <JobDetails

@@ -1,70 +1,161 @@
-# Getting Started with Create React App
+## Jumble
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A job search app to help you find your perfect match!
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+In Jumble, you can search the jobs, see the details and how to apply. You can also sign in to create a favorites list and keep track of the jobs you have applied to. This was a solo react project.
 
-### `npm start`
+## Motivation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Recently, I was talking to a friend of mine and we agreed that searching for a job was like dating. Just like Bumble puts the control in the hands of the ladies, I wanted to put the control in the hands of the searcher. And just like Tinder lets daters quickly scroll through jobs, I wanted to create a way to quickly organize your job search.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Challenges and Solutions
 
-### `npm test`
+With this app, I got to explore some new libraries, like react swipeable and react alerts, and practice using their documentation to implement them. I also was able to practice both end to end testing with cypress and component testing with react component testing. Finally, I was able to create API call to an external API, make calls to my API that I built with Postges, and deploy using continuous deployment through GitHub with Heroku and Netlifly! Lot of fun new things!
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Screenshots
 
-### `npm run build`
+The login screen appears above the search boxes. Users can search by a language, a zip code, or both.
+![Login and public search screen](./public/readmeImages/RM2.png)
+<br>
+<br>
+If a job is clicked on, it opens the Job Details page.
+![Job Details screen](./public/readmeImages/RM3.png)
+<br>
+<br>
+The Job Details has a "How to Apply" section to make applying for jobs a breeze!
+![Login screen](./public/readmeImages/RM4.png)
+<br>
+<br>
+If you need to create an account, you can do so here. Avatars will appear as cover photos behind the welcome message.
+![Login screen](./public/readmeImages/RM5.png)
+<br>
+<br>
+Error messages if you enter a Username that is already taken.
+![Login screen](./public/readmeImages/RM6.png)
+<br>
+<br>
+Once logged in, users can view Favorites, Applied, and Deleted jobs. These can be chose by clicking the appropriate icons or swipe right to favorite and left to delete.
+![Login screen](./public/readmeImages/RM7.png)
+<br>
+<br>
+Finally, deleted jobs go into the Dumpster fire where users can bring them back by favoriting them.
+![Login screen](./public/readmeImages/RM8.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Tech/framework used
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Ex. -
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<b>Built with</b>
 
-### `npm run eject`
+-
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Features
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Ability for users to save jobs
+- Users can easily sort through job list with swiping
+- Users can also scroll through the list and use icons to save and mark as applied
+- Users can see job details
+- Users can easily search jobs based on parameters
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Code Example
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+back-end query:
 
-## Learn More
+```
+static async addUser(
+    username,
+    password,
+    first_name,
+    last_name,
+    zip_code,
+    phone_num,
+    picture
+  ) {
+    try {
+      const query = `INSERT INTO users (username, password, first_name, last_name, zip_code, phone_num, picture) VALUES ('${username}',  '${password}', '${first_name}', '${last_name}', '${zip_code}', '${phone_num}', '${picture}') RETURNING id;`;
+      const response = await db.one(query);
+      return response;
+    } catch (error) {
+      return error.message;
+    }
+  }
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  <br>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Sending data to the back-end to make the api call:
 
-### Code Splitting
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+const _handleSubmit = async (e) => {
+  e.preventDefault();
+  setSearch(true);
+  const submitResponse = await fetch(
+    `${process.env.REACT_APP_SERVER_URL}jobs/?progLang=${progLang}&zip=${zip}`,
+    {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    }
+  )
+    .then((response) => response.json())
+    .catch((e) => {
+      console.log(e);
+    });
+  console.log("This is the jobList DATA: ", submitResponse);
+  if (submitResponse) {
+    if (submitResponse.length > 0) {
+      setJobsList(
+        submitResponse.filter(
+          (job) =>
+            !favoritesList.some((faveJob) => job.id === faveJob.job_id) &&
+            !appliedList.some((appliedJob) => job.id === appliedJob.job_id) &&
+            !trashedList.some((trashedJob) => job.id === trashedJob.job_id)
+        )
+      );
+      setSubmitError(null);
+      setIsEmpty(false);
+    } else {
+      setSearch(false);
+      setIsEmpty(true);
+    }
+  } else {
+    setSubmitError(
+      "You've been triple crystalized!!!! i.e. you don't have any data coming in..."
+    );
+  }
+};
+```
 
-### Analyzing the Bundle Size
+Creating Alerts! So fun!
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```
+else {
+      myAlert.error("You broke it!");
+      setTimeout(() => {
+        myAlert.error("Just kidding.");
+      }, 1000);
+      setTimeout(() => {
+        myAlert.error("That username is super popular.");
+      }, 2000);
+      setTimeout(() => {
+        myAlert.error("Choose something else.");
+      }, 3000);
+      setUsernameTaken(true);
+    }
 
-### Making a Progressive Web App
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## API Reference
 
-### Advanced Configuration
+https://jobs.github.com
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Tests
 
-### Deployment
+Both Cypress and react component tests were creating and run. However, this app is not strictly TDD.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Use it!
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Go to:
+https://jumble.netlify.app/
